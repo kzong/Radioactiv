@@ -41,8 +41,7 @@ public class readCSV {
                 atObjet.setabr(elements[1]);
                 atObjet.setZ(Integer.parseInt(elements[2]));
                 atObjet.setN(Integer.parseInt(elements[3]));
-                atObjet.setA(Integer.parseInt(elements[3]) +
-                             Integer.parseInt(elements[2]));
+                atObjet.setA(Integer.parseInt(elements[3]) + Integer.parseInt(elements[2]));
                 String type = elements[4];
                 switch (type) {
                 case "alpha":
@@ -133,8 +132,7 @@ public class readCSV {
                 atRObjet.setabr(elements[1]);
                 atRObjet.setZ(Integer.parseInt(elements[2]));
                 atRObjet.setN(Integer.parseInt(elements[3]));
-                atRObjet.setA(Integer.parseInt(elements[3]) +
-                              Integer.parseInt(elements[2]));
+                atRObjet.setA(Integer.parseInt(elements[3]) + Integer.parseInt(elements[2]));
                 String type = elements[4];
                 atRObjet.setN(Integer.parseInt(elements[3]));
                 switch (type) {
@@ -166,7 +164,6 @@ public class readCSV {
 
                 }
                 atRObjet.setdVie(Double.parseDouble(elements[5]));
-                
 
 
                 // adding car objects to a list

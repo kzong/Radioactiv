@@ -31,7 +31,6 @@ public class InterfGraph extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 1024));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -48,17 +47,32 @@ public class InterfGraph extends javax.swing.JFrame {
         jDesktopPane1.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Play.setText("jToggleButton1");
-        Play.setBounds(40, 460, 107, 21);
+        Play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PlayActionPerformed(evt);
+            }
+        });
+        Play.setBounds(50, 830, 107, 21);
         jDesktopPane1.add(Play, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Stop.setText("jToggleButton2");
-        Stop.setBounds(150, 460, 107, 21);
+        Stop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StopActionPerformed(evt);
+            }
+        });
+        Stop.setBounds(170, 830, 107, 21);
         jDesktopPane1.add(Stop, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Pause.setText("jToggleButton3");
-        Pause.setBounds(260, 460, 107, 21);
+        Pause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PauseActionPerformed(evt);
+            }
+        });
+        Pause.setBounds(290, 830, 107, 21);
         jDesktopPane1.add(Pause, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jSlideVitesse.setBounds(80, 520, 200, 16);
+        jSlideVitesse.setBounds(60, 950, 200, 16);
         jDesktopPane1.add(jSlideVitesse, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -90,6 +104,18 @@ public class InterfGraph extends javax.swing.JFrame {
 
         pack();
     }//GEN-END:initComponents
+
+    private void PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayActionPerformed
+        Princip.playButton();
+    }//GEN-LAST:event_PlayActionPerformed
+
+    private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
+        Princip.stopButton();
+    }//GEN-LAST:event_StopActionPerformed
+
+    private void PauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PauseActionPerformed
+        Princip.pauseButton();
+    }//GEN-LAST:event_PauseActionPerformed
 
     /**
      * @param args the command line arguments
