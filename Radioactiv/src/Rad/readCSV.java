@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class readCSV {
 
-    public static void convertCsvToJavaAt(LinkedList ListeElem) {
+    public static void convertCsvToJavaAt(ArrayList ListeElem) {
         String csvFileToRead = "csvFiles/csvToRead.csv";
         BufferedReader br = null;
         String line = "";
@@ -108,7 +108,7 @@ public class readCSV {
         }
     }
 */
-    public static void convertCsvToJavaAtR(LinkedList ListeElem) {
+    public static void convertCsvToJavaAtR(ArrayList ListeElem) {
         String csvFileToRead = "csvFiles/csvToRead.csv";
         BufferedReader br = null;
         String line = "";

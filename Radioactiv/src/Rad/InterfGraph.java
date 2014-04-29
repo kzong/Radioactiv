@@ -1,10 +1,14 @@
 
 package Rad;
 
+import javax.swing.JSlider;
+import javax.swing.JTable;
+
 /**
  *
  * @author ENZO
  */
+
 public class InterfGraph extends javax.swing.JFrame {
 
     /** Creates new form InterfGraph */
@@ -27,8 +31,8 @@ public class InterfGraph extends javax.swing.JFrame {
         Stop = new javax.swing.JToggleButton();
         Pause = new javax.swing.JToggleButton();
         jSlideVitesse = new javax.swing.JSlider();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ElementsTable = new javax.swing.JScrollPane();
+        jTable1 =  Princip.getTabElem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,56 +44,53 @@ public class InterfGraph extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        jPanel1.setBounds(30, 30, 580, 400);
+        jPanel1.setBounds(30, 30, 580, 440);
         jDesktopPane1.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        Play.setText("jToggleButton1");
+        Play.setText("Commencer la Simulation");
         Play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PlayActionPerformed(evt);
             }
         });
-        Play.setBounds(50, 830, 107, 21);
+        Play.setBounds(50, 830, 152, 21);
         jDesktopPane1.add(Play, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        Stop.setText("jToggleButton2");
+        Stop.setText("Fin");
         Stop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StopActionPerformed(evt);
             }
         });
-        Stop.setBounds(170, 830, 107, 21);
+        Stop.setBounds(170, 830, 48, 21);
         jDesktopPane1.add(Stop, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        Pause.setText("jToggleButton3");
+        Pause.setText("Pause/Reprendre");
         Pause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PauseActionPerformed(evt);
             }
         });
-        Pause.setBounds(290, 830, 107, 21);
+        Pause.setBounds(290, 830, 118, 21);
         jDesktopPane1.add(Pause, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jSlideVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlideVitesseStateChanged(evt);
+            }
+        });
         jSlideVitesse.setBounds(60, 950, 200, 16);
         jDesktopPane1.add(jSlideVitesse, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jTable1.setAutoCreateColumnsFromModel(false);
+        jTable1.setModel(null);
+        ElementsTable.setViewportView(jTable1);
 
-        jScrollPane1.setBounds(980, 20, 230, 310);
-        jDesktopPane1.add(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ElementsTable.setBounds(640, 30, 610, 520);
+        jDesktopPane1.add(ElementsTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,10 +118,20 @@ public class InterfGraph extends javax.swing.JFrame {
         Princip.pauseButton();
     }//GEN-LAST:event_PauseActionPerformed
 
+    private void jSlideVitesseStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlideVitesseStateChanged
+        // TODO add your handling code here:
+        JSlider source = jSlideVitesse;
+            if (!source.getValueIsAdjusting()) {
+                int T = (int)source.getValue();
+                }
+            
+        
+    }//GEN-LAST:event_jSlideVitesseStateChanged
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -157,12 +168,12 @@ public class InterfGraph extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ElementsTable;
     private javax.swing.JToggleButton Pause;
     private javax.swing.JToggleButton Play;
     private javax.swing.JToggleButton Stop;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlideVitesse;
     private javax.swing.JTable jTable1;
     private javax.swing.JPopupMenu menuInit;

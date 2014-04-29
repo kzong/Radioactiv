@@ -3,15 +3,15 @@ package Rad;
 public class At {
     protected String nom;
     protected String abr;
-    int A;
-    int Z;
-    int N;
-    int type;
-    int pop2;
-    int pop1;
-    int popIni;
-    boolean affiche;
-    double activite;
+    protected int A;
+    protected int Z;
+    protected int N;
+    protected int type;
+    protected int pop2;
+    protected int pop1;
+    protected int popIni;
+    protected boolean affiche;
+    protected double activite;
 
     protected double dVie;
 
@@ -51,7 +51,7 @@ public class At {
         return pop1;
     }
 
-    public int getpopIn1() {
+    public int getpopIni() {
         return popIni;
     }
 
