@@ -17,7 +17,7 @@ public class MyTableModel_1 extends AbstractTableModel {
     private Object[][] data=Princip.gettabElem();
     
     
-    public Object[][] fillIni(){
+    public static Object[][] fillIni(){
         Object[][] prov=new Object [40][11];
         for(int i=0; i<40; i++){
             for(int j=0; j<11; j++){

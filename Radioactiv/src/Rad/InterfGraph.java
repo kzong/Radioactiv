@@ -176,7 +176,8 @@ public class InterfGraph extends javax.swing.JFrame {
     }
     
     public static void refreshTab(){
-        jTable1.repaint();
+        jTable1.invalidate();
+        
     }
     
     public void tableChanged(TableModelEvent e) {
