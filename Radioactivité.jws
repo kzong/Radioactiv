@@ -10,5 +10,7 @@
    </list>
    <list n="listOfChildren">
       <hash><url n="URL" path="Radioactiv/Radioactiv.jpr"/></hash>
+      <hash><url n="URL" path="../../../Users/Virginie/Documents/TPJDev/Calculette/Calculette.jpr"/></hash>
+      <hash><url n="URL" path="../../../Users/Virginie/Documents/TPJDev/SpaceInvaders/SpaceInvaders.jpr"/></hash>
    </list>
 </jws:workspace>

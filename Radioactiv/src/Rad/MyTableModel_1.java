@@ -2,7 +2,9 @@ package Rad;
 
 import java.util.ArrayList;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 public class MyTableModel_1 extends AbstractTableModel {
     @SuppressWarnings("compatibility:-788613436047893303")
@@ -11,35 +13,27 @@ public class MyTableModel_1 extends AbstractTableModel {
     public MyTableModel_1() {
         super();
     }
-    private String[] columnNames = {"Affichage","Nom","Abréviation","A","Z","N","Demie-Vie","Type de désintégration","Population Initial", "Population Actuelle", "Activité"};
-    private Object[][] data =fillData();
+    static protected String[] columnNames = {"Affichage","Nom","Abréviation","A","Z","N","Demie-Vie","Type de désintégration","Population Initial", "Population Actuelle", "Activité"};
+    private Object[][] data=Princip.gettabElem();
     
     
-    public Object[][] fillData(){
-        ArrayList<At> Liste=Princip.getList();
-        int numCol=10;
-        int numLign=Liste.size();
-        Object[][] data=new Object[numCol][numLign];
-        for (int i = 0; i < Liste.size(); i++) {
-            At atome = Liste.get(i);
-            data[i][0]=atome.getaffiche();
-            data[i][1]=atome.getnom();
-            data[i][2]=atome.getabr();
-            data[i][3]=atome.getA();
-            data[i][4]=atome.getZ();
-            data[i][5]=atome.getN();
-            data[i][6]=atome.getdVie();
-            data[i][7]=atome.gettype();
-            data[i][8]=atome.getpopIni();
-            data[i][9]=atome.getpop2();
-            data[i][10]=atome.getactivite();
+    public Object[][] fillIni(){
+        Object[][] prov=new Object [40][11];
+        for(int i=0; i<40; i++){
+            for(int j=0; j<11; j++){
+                prov[i][j]=0;
+            }
             
         }
-        return data;
+        return prov;
     }
     
     public String getColumnName(int col) {
            return columnNames[col].toString();
+       }
+    
+    public static String[] getColumnNames() {
+           return columnNames;
        }
 
 
@@ -66,10 +60,10 @@ public class MyTableModel_1 extends AbstractTableModel {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if (col > 1) {
+            if (col>=1 & col != 8) {
                 return false;
-            }else if (col == 9 & Princip.getStartSim()==true) {
-                return false;
+            }else if (col == 8 & Princip.getStartSim()==false) {
+                return true;
             }
             else {
                 return true;
@@ -80,6 +74,44 @@ public class MyTableModel_1 extends AbstractTableModel {
          * Don't need to implement this method unless your table's
          * data can change.
          */
+        
+        public void tableChanged(TableModelEvent e) {
+            /*
+             * Les 2 colonnes modifiables sont la 1: affiche et la 8, popini, modifiable avant le démarrage.
+             * dans 1, la valeur est boolean, dans 8 entière.
+             * on met a jour les valeurs dans l'arraylist, puis on recrée le tableau.
+             * TODO: voir si on ne peut pas changer les valeurs du tableau plutot que refaire le tableau
+             */
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+                TableModel model = (TableModel)e.getSource();
+                String columnName = model.getColumnName(column);
+                Object data = model.getValueAt(row, column);
+                
+                switch(column){
+                case 1: {
+                            boolean value=(Boolean) data;
+                            if(Princip.searchAfficheTrue()!=-1){
+                                At prov=Princip.getElemListeElem(row);
+                                prov.setaffiche(false);
+                                Princip.setElemListeElem(row,prov);
+                            }
+                        At prov2=Princip.getElemListeElem(row);
+                        prov2.setaffiche(true);
+                        Princip.setElemListeElem(row,prov2);
+                    }break;
+                    case 8: {
+                                int value= (Integer) data;
+                            At prov=Princip.getElemListeElem(row);
+                            prov.setpopIni(value);
+                            Princip.setElemListeElem(row,prov);
+                        }break;
+                   
+                }
+                Princip.majTabElem();
+                
+            }
+        
         public void setValueAt(Object value, int row, int col) {
             data[row][col] = value;
             fireTableCellUpdated(row, col);

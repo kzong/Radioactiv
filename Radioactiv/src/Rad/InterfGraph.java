@@ -3,6 +3,14 @@ package Rad;
 
 import javax.swing.JSlider;
 import javax.swing.JTable;
+import Rad.MyTableModel_1;
+
+
+import java.util.EventListener;
+
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,6 +22,7 @@ public class InterfGraph extends javax.swing.JFrame {
     /** Creates new form InterfGraph */
     public InterfGraph() {
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -32,7 +41,7 @@ public class InterfGraph extends javax.swing.JFrame {
         Pause = new javax.swing.JToggleButton();
         jSlideVitesse = new javax.swing.JSlider();
         ElementsTable = new javax.swing.JScrollPane();
-        jTable1 =  Princip.getTabElem();
+        jTable1 =  new JTable(new MyTableModel_1());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +65,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PlayActionPerformed(evt);
             }
         });
-        Play.setBounds(50, 830, 152, 21);
+        Play.setBounds(60, 600, 152, 21);
         jDesktopPane1.add(Play, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Stop.setText("Fin");
@@ -65,7 +74,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 StopActionPerformed(evt);
             }
         });
-        Stop.setBounds(170, 830, 48, 21);
+        Stop.setBounds(250, 600, 48, 21);
         jDesktopPane1.add(Stop, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Pause.setText("Pause/Reprendre");
@@ -74,7 +83,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PauseActionPerformed(evt);
             }
         });
-        Pause.setBounds(290, 830, 118, 21);
+        Pause.setBounds(330, 600, 118, 21);
         jDesktopPane1.add(Pause, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jSlideVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -82,11 +91,12 @@ public class InterfGraph extends javax.swing.JFrame {
                 jSlideVitesseStateChanged(evt);
             }
         });
-        jSlideVitesse.setBounds(60, 950, 200, 16);
+        jSlideVitesse.setBounds(50, 660, 200, 16);
         jDesktopPane1.add(jSlideVitesse, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jTable1.setAutoCreateColumnsFromModel(false);
-        jTable1.setModel(null);
+        jTable1.setAutoCreateColumnsFromModel(true);
+        jTable1.setModel(new MyTableModel_1());
+        jTable1.getTableHeader().setReorderingAllowed(false);
         ElementsTable.setViewportView(jTable1);
 
         ElementsTable.setBounds(640, 30, 610, 520);
@@ -100,7 +110,7 @@ public class InterfGraph extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,45 +138,7 @@ public class InterfGraph extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jSlideVitesseStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfGraph.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                                                                                ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfGraph.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                                                                                ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfGraph.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                                                                                ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfGraph.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                                                                                ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfGraph().setVisible(true);
-            }
-        });
-    }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ElementsTable;
     private javax.swing.JToggleButton Pause;
@@ -175,8 +147,54 @@ public class InterfGraph extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlideVitesse;
-    private javax.swing.JTable jTable1;
+    private static javax.swing.JTable jTable1;
     private javax.swing.JPopupMenu menuInit;
     // End of variables declaration//GEN-END:variables
 
+    public static void setjTable1(JTable t){
+        jTable1=t;
+    }
+    
+    public static JTable getjTable1(){
+        return jTable1;
+    }
+    
+   
+    
+    public void tableChanged(TableModelEvent e) {
+        /*
+         * Les 2 colonnes modifiables sont la 1: affiche et la 8, popini, modifiable avant le démarrage.
+         * dans 1, la valeur est boolean, dans 8 entière.
+         * on met a jour les valeurs dans l'arraylist, puis on recrée le tableau.
+         * TODO: voir si on ne peut pas changer les valeurs du tableau plutot que refaire le tableau
+         */
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+            MyTableModel_1 model = ( MyTableModel_1)e.getSource();
+            String columnName = model.getColumnName(column);
+            Object data = model.getValueAt(row, column);
+            
+            switch(column){
+            case 1: {
+                        boolean value=(Boolean) data;
+                        if(Princip.searchAfficheTrue()!=-1){
+                            At prov=Princip.getElemListeElem(row);
+                            prov.setaffiche(false);
+                            Princip.setElemListeElem(row,prov);
+                        }
+                    At prov2=Princip.getElemListeElem(row);
+                    prov2.setaffiche(true);
+                    Princip.setElemListeElem(row,prov2);
+                }break;
+                case 8: {
+                            int value= (Integer) data;
+                        At prov=Princip.getElemListeElem(row);
+                        prov.setpopIni(value);
+                        Princip.setElemListeElem(row,prov);
+                    }break;
+               
+            }
+            Princip.majTabElem();
+            
+        }
 }

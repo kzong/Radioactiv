@@ -126,4 +126,8 @@ public class At {
     public void setdVie(double d) {
         dVie = 0;
     }
+    
+    public void toPrint(){
+        System.out.println(this.nom+" "+this.abr+" "+this.A+" "+this.Z+" "+this.N+" "+this.type);
+    }
 }

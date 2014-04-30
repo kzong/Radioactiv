@@ -17,9 +17,9 @@ import java.util.List;
 public class readCSV {
 
     public static void convertCsvToJavaAt(ArrayList ListeElem) {
-        String csvFileToRead = "csvFiles/csvToRead.csv";
+        String csvFileToRead = "csvFiles/Elements.csv";
         BufferedReader br = null;
-        String line = "";
+        String line = ";";
         String splitBy = ",";
         // doit utiliser une liste déjà crée
 
@@ -95,24 +95,12 @@ public class readCSV {
         }
     }
 
-    /*public void printCarList(List<cars> carListToPrint) {
-        for (int i = 0; i < carListToPrint.size(); i++) {
-            System.out.println("CARS [year= " +
-                               carListToPrint.get(i).getYear() + " , make=" +
-                               carListToPrint.get(i).getMake() + " , model=" +
-                               carListToPrint.get(i).getModel() +
-                               " , description=" +
-                               carListToPrint.get(i).getDescription() +
-                               " , price=" + carListToPrint.get(i).getPrice() +
-                               "]");
-        }
-    }
-*/
-    public static void convertCsvToJavaAtR(ArrayList ListeElem) {
-        String csvFileToRead = "csvFiles/csvToRead.csv";
+    
+    public static void convertCsvToJavaAt2(ArrayList ListeElem) {
+        String csvFileToRead = "csvFiles/Elements.csv";
         BufferedReader br = null;
         String line = "";
-        String splitBy = ",";
+        String splitBy = "/";
         // doit utiliser une liste déjà crée
 
 
@@ -125,28 +113,27 @@ public class readCSV {
                 String[] elements = line.split(splitBy);
 
                 // create  object to store values
-                AtR atRObjet = new AtR();
+                At atRObjet = new At();
 
                 // add values from csv to ATR object
                 atRObjet.setnom(elements[0]);
                 atRObjet.setabr(elements[1]);
                 atRObjet.setZ(Integer.parseInt(elements[2]));
                 atRObjet.setN(Integer.parseInt(elements[3]));
-                atRObjet.setA(Integer.parseInt(elements[3]) + Integer.parseInt(elements[2]));
-                String type = elements[4];
-                atRObjet.setN(Integer.parseInt(elements[3]));
+                atRObjet.setA(Integer.parseInt(elements[4]));
+                String type = elements[5];
                 switch (type) {
-                case "alpha":
+                case "Alpha":
                     {
                         atRObjet.settype(1);
                     }
                     break;
-                case "Beta -":
+                case "Beta-":
                     {
                         atRObjet.settype(2);
                     }
                     break;
-                case "Beta +":
+                case "Beta+":
                     {
                         atRObjet.settype(3);
                     }
@@ -161,9 +148,16 @@ public class readCSV {
                         atRObjet.settype(0);
                     }
                     break;
+                case "STABLE":
+                    {
+                        atRObjet.settype(0);
+                    }
+                    break;
 
                 }
-                atRObjet.setdVie(Double.parseDouble(elements[5]));
+                atRObjet.setdVie(Double.parseDouble(elements[6]));
+                atRObjet.setaffiche(false);
+                atRObjet.toPrint();
 
 
                 // adding car objects to a list
