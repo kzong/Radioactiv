@@ -14,21 +14,21 @@ import javax.swing.Timer;
 /*
  * CREDITS
  * getters et setters de At par Kexin Zong
- * Objet At et base de donnï¿½e des atomes par Daphnï¿½ Guibert
+ * Objet At et base de donnée des atomes par Daphné Guibert
  * Jmathplot, courbes etc... par Alexandre Lamartine
  * Reste par Enzo Vironda
- * ReadCSV inspirï¿½ de Nagesh Chauhan @http://www.beingjavaguys.com/2013/09/read-and-parse-csv-file-in-java.html
+ * ReadCSV inspiré de Nagesh Chauhan @http://www.beingjavaguys.com/2013/09/read-and-parse-csv-file-in-java.html
  * Relecture, optimisation, correction par tous
  */
 
 public class Princip {
     
-    //pas du chronomï¿½tre
+    //pas du chronométre
     protected static int T;
     static Timer timer;
     protected double temps;
     protected static ArrayList<At> ListeElem =
-        new ArrayList(); //passage d'une lined list ï¿½ Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'oï¿½ une surchage de parcours
+        new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'oé une surchage de parcours
     protected static JTable jtabElem;
     protected static Object[][] tabElem;
     protected static boolean finSim=false;
@@ -42,17 +42,21 @@ public class Princip {
     public Princip() {
         //rempli la liste des atomes
         Origin(); // met en place timer
-        // TODO crï¿½er fonction qui remplit les conditions initiales: a priori, tableau ï¿½ditable avant le play
-        
+            
+        jtabElem=new JTable(tabElem,MyTableModel_1.getColumnNames());//inutile ?
+        fen.setjTable1(jtabElem);
+        // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
+
+       
 
     }
 
     public void desint(At atome) {
         /*
-        *Prend un atome et en rÃ©alise la dÃ©sintÃ©gration :
-        dÃ©temine en quel Ã©lÃ©ment il se dÃ©sintÃ¨gre selon le type de dÃ©sintÃ©gration
-        parcourt la liste pour trouver l'atome crÃ©e, met Ã  jours les populations
-        Si une particule est Ã©mise, sa position est connue et sa population mise Ã  jour.
+        *Prend un atome et en réalise la désintégration :
+        détemine en quel élément il se désintégre selon le type de désintégration
+        parcourt la liste pour trouver l'atome crée, met à  jour les populations
+        Si une particule est émise, sa position est connue et sa population mise Ã  jour.
         */
         At atomeprov;
         At atomedes;
@@ -73,7 +77,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At He = ListeElem.get(posHel); // trouve ï¿½lï¿½m Helium, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
+                        At He = ListeElem.get(posHel); // trouve élém Helium, pop1 pop précédente, pop2 nouvelle pop
                         He.setpop1(He.getpop2());
                         He.setpop2(He.getpop2() + des);
                         ListeElem.set(posHel, He);
@@ -95,7 +99,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At El = ListeElem.get(posElec); // trouve ï¿½lï¿½m Elec, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
+                        At El = ListeElem.get(posElec); // trouve élém Elec, pop1 pop précédente, pop2 nouvelle pop
                         El.setpop1(El.getpop2());
                         El.setpop2(El.getpop2() + des);
                         ListeElem.set(posElec, El);
@@ -117,7 +121,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At Pro = ListeElem.get(posProt); // trouve ï¿½lï¿½m Proton, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
+                        At Pro = ListeElem.get(posProt); // trouve élém Proton, pop1 pop précédente, pop2 nouvelle pop
                         Pro.setpop1(Pro.getpop2());
                         Pro.setpop2(Pro.getpop2() + des);
                         ListeElem.set(posProt, Pro);
@@ -139,15 +143,15 @@ public class Princip {
     private void Origin() {
        // readCSV.convertCsvToJavaAt(ListeElem);
         readCSV.convertCsvToJavaAt2(ListeElem);
-        tabElem=fillData();
-        jtabElem=new JTable(tabElem,MyTableModel_1.getColumnNames());
+        majTabElem();//rempli un tableau à partir de l'ArrayList
+        jtabElem=new JTable(tabElem,MyTableModel_1.getColumnNames());//inutile ?
         fen=new InterfGraph();
         fen.setjTable1(jtabElem);
         
         fen.setVisible(true);
         fen.setResizable(false);
-        fen.repaint();
-        timer = new Timer(T, new TimerAction()); //implï¿½menter timeraction Timer(T, new TimerAction())
+        
+        timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
         
         
@@ -155,16 +159,16 @@ public class Princip {
     }
     
     public void boucle_principale() {
-        // appProï¿½e ï¿½ chaque instant t
+        // appProée é chaque instant t
         //parcoure Listelem
-        // rï¿½alise la dï¿½gradation de chaque ï¿½lï¿½ment
+        // réalise la dégradation de chaque élément
         At atome;
         for (int i = 0; i < ListeElem.size(); i++) {
             atome = ListeElem.get(i);
             desint(atome);
             atome.activite();
         }
-        tabElem=fillData();
+        majTabElem();
         jtabElem=new JTable(tabElem,MyTableModel_1.getColumnNames());
         fen.setjTable1(jtabElem);
         fen.repaint();
@@ -213,7 +217,7 @@ public class Princip {
     
     private void searchPosParticule(){
         /*
-         * cherche et initialise la position des particules importantes dans la dï¿½sintï¿½gration, la taille de l'ArrayList ne changeant pas.
+         * cherche et initialise la position des particules importantes dans la désintégration, la taille de l'ArrayList ne changeant pas.
          */
         At atome;
         for (int i = 0; i < ListeElem.size(); i++) {
@@ -225,8 +229,17 @@ public class Princip {
     }
     
     /*
-     * Implï¿½mentation Boutons
+     * Implémentation Boutons
      */
+   public static void testButton(){
+        At test=getElemListeElem(0);
+        test.setnom("coucou");
+        setElemListeElem(0,test);
+        majTabElem();
+        jtabElem=new JTable(tabElem,MyTableModel_1.getColumnNames());
+        InterfGraph.setjTable1(jtabElem);
+        InterfGraph.refreshTab();
+    }
 
     public static void stopButton() {
         if (timer.isRunning()) {

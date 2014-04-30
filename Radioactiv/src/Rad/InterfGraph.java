@@ -42,6 +42,7 @@ public class InterfGraph extends javax.swing.JFrame {
         jSlideVitesse = new javax.swing.JSlider();
         ElementsTable = new javax.swing.JScrollPane();
         jTable1 =  new JTable(new MyTableModel_1());
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +103,15 @@ public class InterfGraph extends javax.swing.JFrame {
         ElementsTable.setBounds(640, 30, 610, 520);
         jDesktopPane1.add(ElementsTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jButton1.setText("Test");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.setBounds(260, 520, 55, 21);
+        jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,12 +148,18 @@ public class InterfGraph extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jSlideVitesseStateChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Princip.testButton();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ElementsTable;
     private javax.swing.JToggleButton Pause;
     private javax.swing.JToggleButton Play;
     private javax.swing.JToggleButton Stop;
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlideVitesse;
@@ -159,7 +175,9 @@ public class InterfGraph extends javax.swing.JFrame {
         return jTable1;
     }
     
-   
+    public static void refreshTab(){
+        jTable1.repaint();
+    }
     
     public void tableChanged(TableModelEvent e) {
         /*
