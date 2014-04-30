@@ -25,12 +25,14 @@ import javax.swing.Timer;
 public class Princip {
 
     //pas du chronométre
-    protected static int T;
+
+    protected static int T=1;
+    protected static int Tsec=1000*T;
     static Timer timer;
     protected double temps;
     protected static ArrayList<At> ListeElem =
         new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'oé une surchage de parcours
-    protected static JTable jtabElem;
+    //protected static JTable jtabElem;
     protected static Object[][] tabElem;
     protected static boolean finSim = false;
     protected int posElec;
@@ -46,9 +48,8 @@ public class Princip {
         //rempli la liste des atomes
         Origin(); // met en place timer
 
-        jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
-        fen.setjTable1();
-        fen.revalidate();
+        //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
+        InterfGraph.setjTable1();
         // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
 
 
@@ -152,10 +153,10 @@ public class Princip {
         readCSV.convertCsvToJavaAt2(ListeElem);
         searchPosParticule();
         majTabElem(); //rempli un tableau à partir de l'ArrayList
-        jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
+        //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
         
         fen = new InterfGraph();
-        fen.setjTable1();
+        InterfGraph.setjTable1();
         InterfGraph.refreshTab();
         
         fen.setVisible(true);
@@ -164,9 +165,20 @@ public class Princip {
         fen.repaint();
         SwingUtilities.updateComponentTreeUI(fen);
 
-        timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
+        timer = new Timer(Tsec, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
+        InterfGraph.textsetjTextField1("Timer");
 
+
+    }
+    
+    public void testTimer(){
+        At test = getElemListeElem(0);
+        test.setA(test.getA()+1);
+        setElemListeElem(0, test);
+        majTabElem();
+        InterfGraph.setjTable1();
+        InterfGraph.refreshTab();
 
     }
 
@@ -184,7 +196,7 @@ public class Princip {
             atome.activite();
         }
         majTabElem();
-        jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
+        //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
         InterfGraph.setjTable1();
         InterfGraph.refreshTab();
         fen.repaint();
@@ -200,8 +212,12 @@ public class Princip {
         // ActionListener appProee tous les interval millisecondes
 
         public void actionPerformed(ActionEvent e) {
-            boucle_principale();
-            temps = temps + T;
+            //boucle_principale();
+            testTimer();
+            double T2=(double) T;
+            temps =temps + T2;
+            System.out.println(temps);
+            InterfGraph.textsetjTextField1(String.valueOf(temps));
         }
 
     }
@@ -259,12 +275,12 @@ public class Princip {
         test.setnom("coucou");
         setElemListeElem(0, test);
         test.toPrint();
+        At newat=test;
+        ListeElem.add(newat);
         majTabElem();
         tabToPrint(tabElem);
-        jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
-        jtabToPrint(jtabElem);
-        jtabToPrint(InterfGraph.getjTable1());
         InterfGraph.setjTable1();
+        jtabToPrint(InterfGraph.getjTable1());
         InterfGraph.refreshTab();
     }
 
@@ -289,7 +305,7 @@ public class Princip {
     }
 
     public static void playButton() {
-        if (timer.isRunning() == false & getStartSim() == false & getfinSim() == false) {
+        if (getStartSim() == false & getfinSim() == false) {
             timer.start();
             setStartSim(true);
         } else {
@@ -316,14 +332,14 @@ public class Princip {
         return at;
     }
 
-    public static JTable getjtabElem() {
+/*    public static JTable getjtabElem() {
         return jtabElem;
     }
 
-    public void setjtabElem(JTable jt) {
+ public void setjtabElem(JTable jt) {
         jtabElem = jt;
     }
-
+*/
     public static Object[][] gettabElem() {
         return tabElem;
     }
@@ -389,6 +405,7 @@ public class Princip {
             }
             System.out.println();
         }
+        System.out.println("c'était un jtab");
     }
 }
 

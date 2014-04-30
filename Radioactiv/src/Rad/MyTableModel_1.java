@@ -18,7 +18,7 @@ public class MyTableModel_1 extends AbstractTableModel {
     private Object[][] data=fill();
     
     public Object[][] fill(){
-        Princip.settabElem(Princip.fillData());
+        Princip.majTabElem();
         return Princip.gettabElem();
     }
     public static Object[][] fillIni(){
