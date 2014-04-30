@@ -8,6 +8,7 @@ import Rad.MyTableModel_1;
 
 import java.util.EventListener;
 
+import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -41,7 +42,7 @@ public class InterfGraph extends javax.swing.JFrame {
         Pause = new javax.swing.JToggleButton();
         jSlideVitesse = new javax.swing.JSlider();
         ElementsTable = new javax.swing.JScrollPane();
-        jTable1 = new JTable(Princip.gettabElem(), MyTableModel_1.getColumnNames());
+        jTable1 = new JTable(new MyTableModel_1());
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,11 +96,9 @@ public class InterfGraph extends javax.swing.JFrame {
         jSlideVitesse.setBounds(50, 660, 200, 16);
         jDesktopPane1.add(jSlideVitesse, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jTable1.setAutoCreateColumnsFromModel(true);
-        jTable1.setModel(new MyTableModel_1());
         jTable1.getTableHeader().setReorderingAllowed(false);
         ElementsTable.setViewportView(jTable1);
-        setjTable1(new JTable(Princip.gettabElem(), MyTableModel_1.getColumnNames()));
+        Princip.jtabToPrint(jTable1);
 
         ElementsTable.setBounds(640, 30, 610, 520);
         jDesktopPane1.add(ElementsTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -156,7 +155,7 @@ public class InterfGraph extends javax.swing.JFrame {
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane ElementsTable;
+    protected static javax.swing.JScrollPane ElementsTable;
     private javax.swing.JToggleButton Pause;
     private javax.swing.JToggleButton Play;
     private javax.swing.JToggleButton Stop;
@@ -164,12 +163,12 @@ public class InterfGraph extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlideVitesse;
-    private static javax.swing.JTable jTable1;
+    protected static javax.swing.JTable jTable1;
     private javax.swing.JPopupMenu menuInit;
     // End of variables declaration//GEN-END:variables
 
-    public static void setjTable1(JTable t){
-        jTable1=t;
+    public static void setjTable1(){
+        jTable1=new JTable(new MyTableModel_1());
         refreshTab();
     }
     
@@ -178,6 +177,7 @@ public class InterfGraph extends javax.swing.JFrame {
     }
     
     public static void refreshTab(){
+        jTable1.revalidate();
         jTable1.repaint();
         
     }

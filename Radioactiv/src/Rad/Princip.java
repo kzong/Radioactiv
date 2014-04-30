@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 /*
  * CREDITS
@@ -41,11 +42,13 @@ public class Princip {
 
 
     public Princip() {
+        
         //rempli la liste des atomes
         Origin(); // met en place timer
 
         jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
-        fen.setjTable1(jtabElem);
+        fen.setjTable1();
+        fen.revalidate();
         // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
 
 
@@ -150,12 +153,16 @@ public class Princip {
         searchPosParticule();
         majTabElem(); //rempli un tableau à partir de l'ArrayList
         jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
-        InterfGraph.setjTable1(jtabElem);
+        
         fen = new InterfGraph();
+        fen.setjTable1();
         InterfGraph.refreshTab();
-
+        
         fen.setVisible(true);
         fen.setResizable(false);
+        fen.revalidate();
+        fen.repaint();
+        SwingUtilities.updateComponentTreeUI(fen);
 
         timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
@@ -178,7 +185,7 @@ public class Princip {
         }
         majTabElem();
         jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
-        fen.setjTable1(jtabElem);
+        InterfGraph.setjTable1();
         InterfGraph.refreshTab();
         fen.repaint();
 
@@ -257,7 +264,7 @@ public class Princip {
         jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
         jtabToPrint(jtabElem);
         jtabToPrint(InterfGraph.getjTable1());
-        InterfGraph.setjTable1(jtabElem);
+        InterfGraph.setjTable1();
         InterfGraph.refreshTab();
     }
 

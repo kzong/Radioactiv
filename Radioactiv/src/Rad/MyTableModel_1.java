@@ -2,6 +2,7 @@ package Rad;
 //test
 import java.util.ArrayList;
 
+import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -14,14 +15,17 @@ public class MyTableModel_1 extends AbstractTableModel {
         super();
     }
     static protected String[] columnNames = {"Affichage","Nom","Abréviation","A","Z","N","Demie-Vie","Type de désintégration","Population Initial", "Population Actuelle", "Activité"};
-    private Object[][] data;
+    private Object[][] data=fill();
     
-    
+    public Object[][] fill(){
+        Princip.settabElem(Princip.fillData());
+        return Princip.gettabElem();
+    }
     public static Object[][] fillIni(){
         Object[][] prov=new Object [40][11];
         for(int i=0; i<40; i++){
             for(int j=0; j<11; j++){
-                prov[i][j]=0;
+                prov[i][j]=null;
             }
             
         }
