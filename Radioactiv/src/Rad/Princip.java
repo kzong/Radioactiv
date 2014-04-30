@@ -13,22 +13,22 @@ import javax.swing.JTable;
 import javax.swing.Timer;
 /*
  * CREDITS
- * getters et setters par Kexin Zong
- * Objet At et base de donnée des atomes par Daphné Guibert
+ * getters et setters de At par Kexin Zong
+ * Objet At et base de donnï¿½e des atomes par Daphnï¿½ Guibert
  * Jmathplot, courbes etc... par Alexandre Lamartine
  * Reste par Enzo Vironda
- * ReadCSV inspiré de Nagesh Chauhan @http://www.beingjavaguys.com/2013/09/read-and-parse-csv-file-in-java.html
+ * ReadCSV inspirï¿½ de Nagesh Chauhan @http://www.beingjavaguys.com/2013/09/read-and-parse-csv-file-in-java.html
  * Relecture, optimisation, correction par tous
  */
 
 public class Princip {
     
-    //pas du chronomètre
+    //pas du chronomï¿½tre
     protected static int T;
     static Timer timer;
     protected double temps;
     protected static ArrayList<At> ListeElem =
-        new ArrayList(); //passage d'une lined list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'où une surchage de parcours
+        new ArrayList(); //passage d'une lined list ï¿½ Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'oï¿½ une surchage de parcours
     protected static JTable jtabElem;
     protected static Object[][] tabElem;
     protected static boolean finSim=false;
@@ -42,15 +42,21 @@ public class Princip {
     public Princip() {
         //rempli la liste des atomes
         Origin(); // met en place timer
-        // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
+        // TODO crï¿½er fonction qui remplit les conditions initiales: a priori, tableau ï¿½ditable avant le play
         
 
     }
 
     public void desint(At atome) {
+        /*
+        *Prend un atome et en rÃ©alise la dÃ©sintÃ©gration :
+        dÃ©temine en quel Ã©lÃ©ment il se dÃ©sintÃ¨gre selon le type de dÃ©sintÃ©gration
+        parcourt la liste pour trouver l'atome crÃ©e, met Ã  jours les populations
+        Si une particule est Ã©mise, sa position est connue et sa population mise Ã  jour.
+        */
         At atomeprov;
         At atomedes;
-        int posAtome;
+        int posAtome; //position
         int des = 0;
         switch (atome.gettype()) {
         case 0:
@@ -67,7 +73,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At He = ListeElem.get(posHel); // trouve élém Helium, pop1 pop précédente, pop2 nouvelle pop
+                        At He = ListeElem.get(posHel); // trouve ï¿½lï¿½m Helium, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
                         He.setpop1(He.getpop2());
                         He.setpop2(He.getpop2() + des);
                         ListeElem.set(posHel, He);
@@ -89,7 +95,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At El = ListeElem.get(posElec); // trouve élém Elec, pop1 pop précédente, pop2 nouvelle pop
+                        At El = ListeElem.get(posElec); // trouve ï¿½lï¿½m Elec, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
                         El.setpop1(El.getpop2());
                         El.setpop2(El.getpop2() + des);
                         ListeElem.set(posElec, El);
@@ -111,7 +117,7 @@ public class Princip {
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop2(des);
                         ListeElem.set(i, atomedes);
-                        At Pro = ListeElem.get(posProt); // trouve élém Proton, pop1 pop précédente, pop2 nouvelle pop
+                        At Pro = ListeElem.get(posProt); // trouve ï¿½lï¿½m Proton, pop1 pop prï¿½cï¿½dente, pop2 nouvelle pop
                         Pro.setpop1(Pro.getpop2());
                         Pro.setpop2(Pro.getpop2() + des);
                         ListeElem.set(posProt, Pro);
@@ -141,7 +147,7 @@ public class Princip {
         fen.setVisible(true);
         fen.setResizable(false);
         fen.repaint();
-        timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
+        timer = new Timer(T, new TimerAction()); //implï¿½menter timeraction Timer(T, new TimerAction())
         temps = 0;
         
         
@@ -149,9 +155,9 @@ public class Princip {
     }
     
     public void boucle_principale() {
-        // appProée à chaque instant t
+        // appProï¿½e ï¿½ chaque instant t
         //parcoure Listelem
-        // réalise la dégradation de chaque élément
+        // rï¿½alise la dï¿½gradation de chaque ï¿½lï¿½ment
         At atome;
         for (int i = 0; i < ListeElem.size(); i++) {
             atome = ListeElem.get(i);
@@ -207,7 +213,7 @@ public class Princip {
     
     private void searchPosParticule(){
         /*
-         * cherche et initialise la position des particules importantes dans la désintégration, la taille de l'ArrayList ne changeant pas.
+         * cherche et initialise la position des particules importantes dans la dï¿½sintï¿½gration, la taille de l'ArrayList ne changeant pas.
          */
         At atome;
         for (int i = 0; i < ListeElem.size(); i++) {
@@ -219,7 +225,7 @@ public class Princip {
     }
     
     /*
-     * Implémentation Boutons
+     * Implï¿½mentation Boutons
      */
 
     public static void stopButton() {
