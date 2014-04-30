@@ -113,7 +113,7 @@ public class At {
     }
 
     public void activite() {
-        double t = Princip.getT();
+        double t = Princip.getdelay();
         activite = Math.abs(pop1 - pop2) / (t);
     }
 

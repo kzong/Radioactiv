@@ -26,8 +26,8 @@ public class Princip {
 
     //pas du chronométre
 
-    protected static int T=1;
-    protected static int Tsec=1000*T;
+    protected static int T = 1000; //pas du timer
+    protected static double delay = 1; // une seconde  de temps réel = delay secondes de temps
     static Timer timer;
     protected double temps;
     protected static ArrayList<At> ListeElem =
@@ -44,7 +44,7 @@ public class Princip {
 
 
     public Princip() {
-        
+
         //rempli la liste des atomes
         Origin(); // met en place timer
 
@@ -154,27 +154,27 @@ public class Princip {
         searchPosParticule();
         majTabElem(); //rempli un tableau à partir de l'ArrayList
         //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
-        
+
         fen = new InterfGraph();
         InterfGraph.setjTable1();
         InterfGraph.refreshTab();
-        
+
         fen.setVisible(true);
         fen.setResizable(false);
         fen.revalidate();
         fen.repaint();
         SwingUtilities.updateComponentTreeUI(fen);
 
-        timer = new Timer(Tsec, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
+        timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
         InterfGraph.textsetjTextField1("Timer");
 
 
     }
-    
-    public void testTimer(){
+
+    public void testTimer() {
         At test = getElemListeElem(0);
-        test.setA(test.getA()+1);
+        test.setA(test.getA() + 1);
         setElemListeElem(0, test);
         majTabElem();
         InterfGraph.setjTable1();
@@ -214,8 +214,9 @@ public class Princip {
         public void actionPerformed(ActionEvent e) {
             //boucle_principale();
             testTimer();
-            double T2=(double) T;
-            temps =temps + T2;
+
+
+            temps = temps + getdelay();
             System.out.println(temps);
             InterfGraph.textsetjTextField1(String.valueOf(temps));
         }
@@ -275,7 +276,7 @@ public class Princip {
         test.setnom("coucou");
         setElemListeElem(0, test);
         test.toPrint();
-        At newat=test;
+        At newat = test;
         ListeElem.add(newat);
         majTabElem();
         tabToPrint(tabElem);
@@ -332,7 +333,7 @@ public class Princip {
         return at;
     }
 
-/*    public static JTable getjtabElem() {
+    /*    public static JTable getjtabElem() {
         return jtabElem;
     }
 
@@ -372,6 +373,14 @@ public class Princip {
         T = t;
     }
 
+    public static double getdelay() {
+        return delay;
+    }
+
+    public static void setdelay(double d) {
+        delay = d;
+    }
+
     public static int searchAfficheTrue() {
         int pos = -1;
         At atome;
@@ -391,14 +400,14 @@ public class Princip {
     public static void tabToPrint(Object[][] tab) {
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
-                System.out.print(tab[i][j]+" ");
+                System.out.print(tab[i][j] + " ");
             }
             System.out.println();
         }
     }
-    
+
     public static void jtabToPrint(JTable tab) {
-        
+
         for (int i = 0; i < tab.getRowCount(); i++) {
             for (int j = 0; j < tab.getColumnCount(); j++) {
                 System.out.print(tab.getValueAt(i, j));

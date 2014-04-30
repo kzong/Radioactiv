@@ -40,7 +40,7 @@ public class InterfGraph extends javax.swing.JFrame {
         Play = new javax.swing.JToggleButton();
         Stop = new javax.swing.JToggleButton();
         Pause = new javax.swing.JToggleButton();
-        jSlideVitesse = new javax.swing.JSlider();
+        jSlideVitesse = new JSlider(JSlider.HORIZONTAL,1, 10000000, 1000);
         ElementsTable = new javax.swing.JScrollPane();
         jTable1 = new JTable(new MyTableModel_1());
         jButton1 = new javax.swing.JButton();
@@ -152,7 +152,9 @@ public class InterfGraph extends javax.swing.JFrame {
         // TODO add your handling code here:
         JSlider source = jSlideVitesse;
             if (!source.getValueIsAdjusting()) {
-                int T = (int)source.getValue();
+                double Vit = (double)source.getValue()/1000;
+                Princip.setdelay((int)((Vit)*Princip.getdelay()));
+                    
                 }
             
         
