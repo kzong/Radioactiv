@@ -14,7 +14,7 @@ public class MyTableModel_1 extends AbstractTableModel {
         super();
     }
     static protected String[] columnNames = {"Affichage","Nom","Abréviation","A","Z","N","Demie-Vie","Type de désintégration","Population Initial", "Population Actuelle", "Activité"};
-    private Object[][] data=Princip.gettabElem();
+    private Object[][] data;
     
     
     public static Object[][] fillIni(){

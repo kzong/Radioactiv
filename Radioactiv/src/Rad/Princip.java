@@ -150,8 +150,8 @@ public class Princip {
         searchPosParticule();
         majTabElem(); //rempli un tableau à partir de l'ArrayList
         jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
+        InterfGraph.setjTable1(jtabElem);
         fen = new InterfGraph();
-        fen.setjTable1(jtabElem);
         InterfGraph.refreshTab();
 
         fen.setVisible(true);
@@ -254,7 +254,9 @@ public class Princip {
         test.toPrint();
         majTabElem();
         tabToPrint(tabElem);
-        jtabElem = new JTable(test2, MyTableModel_1.getColumnNames());
+        jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
+        jtabToPrint(jtabElem);
+        jtabToPrint(InterfGraph.getjTable1());
         InterfGraph.setjTable1(jtabElem);
         InterfGraph.refreshTab();
     }
@@ -367,6 +369,16 @@ public class Princip {
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
                 System.out.print(tab[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void jtabToPrint(JTable tab) {
+        
+        for (int i = 0; i < tab.getRowCount(); i++) {
+            for (int j = 0; j < tab.getColumnCount(); j++) {
+                System.out.print(tab.getValueAt(i, j));
             }
             System.out.println();
         }

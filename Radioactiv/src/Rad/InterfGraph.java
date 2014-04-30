@@ -41,7 +41,7 @@ public class InterfGraph extends javax.swing.JFrame {
         Pause = new javax.swing.JToggleButton();
         jSlideVitesse = new javax.swing.JSlider();
         ElementsTable = new javax.swing.JScrollPane();
-        jTable1 =  new JTable(new MyTableModel_1());
+        jTable1 = new JTable(Princip.gettabElem(), MyTableModel_1.getColumnNames());
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +99,7 @@ public class InterfGraph extends javax.swing.JFrame {
         jTable1.setModel(new MyTableModel_1());
         jTable1.getTableHeader().setReorderingAllowed(false);
         ElementsTable.setViewportView(jTable1);
+        setjTable1(new JTable(Princip.gettabElem(), MyTableModel_1.getColumnNames()));
 
         ElementsTable.setBounds(640, 30, 610, 520);
         jDesktopPane1.add(ElementsTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -169,6 +170,7 @@ public class InterfGraph extends javax.swing.JFrame {
 
     public static void setjTable1(JTable t){
         jTable1=t;
+        refreshTab();
     }
     
     public static JTable getjTable1(){
@@ -176,7 +178,7 @@ public class InterfGraph extends javax.swing.JFrame {
     }
     
     public static void refreshTab(){
-        jTable1.invalidate();
+        jTable1.repaint();
         
     }
     
