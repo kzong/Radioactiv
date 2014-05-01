@@ -119,15 +119,15 @@ public class At {
 
 
     public double getdVie() {
-        return 0;
+        return dVie;
     }
 
 
     public void setdVie(double d) {
-        dVie = 0;
+        dVie =d;
     }
     
     public void toPrint(){
-        System.out.println(this.nom+" "+this.abr+" "+this.A+" "+this.Z+" "+this.N+" "+this.type);
+        System.out.println(this.nom+" "+this.abr+" "+this.A+" "+this.Z+" "+this.N+" "+this.type+" "+this.dVie);
     }
 }

@@ -40,7 +40,7 @@ public class InterfGraph extends javax.swing.JFrame {
         Play = new javax.swing.JToggleButton();
         Stop = new javax.swing.JToggleButton();
         Pause = new javax.swing.JToggleButton();
-        jSlideVitesse = new JSlider(JSlider.HORIZONTAL,1, 10000000, 1000);
+        jSlideVitesse = new JSlider(JSlider.HORIZONTAL,1, 100000000, 1000);
         ElementsTable = new javax.swing.JScrollPane();
         jTable1 = new JTable(new MyTableModel_1());
         jButton1 = new javax.swing.JButton();
@@ -94,14 +94,14 @@ public class InterfGraph extends javax.swing.JFrame {
                 jSlideVitesseStateChanged(evt);
             }
         });
-        jSlideVitesse.setBounds(50, 660, 200, 16);
+        jSlideVitesse.setBounds(20, 660, 1330, 16);
         jDesktopPane1.add(jSlideVitesse, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTable1.getTableHeader().setReorderingAllowed(false);
         ElementsTable.setViewportView(jTable1);
         Princip.jtabToPrint(jTable1);
 
-        ElementsTable.setBounds(640, 30, 610, 520);
+        ElementsTable.setBounds(640, 30, 720, 580);
         jDesktopPane1.add(ElementsTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setText("Test");
@@ -126,7 +126,7 @@ public class InterfGraph extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1388, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

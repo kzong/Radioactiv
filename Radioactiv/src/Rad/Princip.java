@@ -1,6 +1,14 @@
 package Rad;
 
-
+/*TODO
+ * Gestion des modifications pour le tableau : affichage et popIni
+ * Graphiques: buffer ?
+ * Amélioration du Design
+ * Affichage du temps: 2 jtextfields: 1 valeur 2 unité
+ * changement de format selon temps
+ * URGENT : problème d'arrondis dans desin, d'où une population croissante d'un atome radioactif qui ne peut que se désintégrer
+ * 
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +30,7 @@ import javax.swing.Timer;
  * Relecture, optimisation, correction par tous
  */
 
+
 public class Princip {
 
     //pas du chronométre
@@ -31,7 +40,7 @@ public class Princip {
     static Timer timer;
     protected double temps;
     protected static ArrayList<At> ListeElem =
-        new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'oé une surchage de parcours
+        new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'où une surchage de parcours
     //protected static JTable jtabElem;
     protected static Object[][] tabElem;
     protected static boolean finSim = false;
@@ -62,10 +71,10 @@ public class Princip {
         parcourt la liste pour trouver l'atome crée, met à  jour les populations
         Si une particule est émise, sa position est connue et sa population mise Ã  jour.
         */
-        At atomeprov;
-        At atomedes;
+        At atomeprov;//atome considéré
+        At atomedes;//atome fruit de la désintégration
         int posAtome; //position
-        int des = 0;
+        int des = 0;//population desintégrée
         switch (atome.gettype()) {
         case 0:
             break;
@@ -77,10 +86,11 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) (atome.popIni *
-                                             Math.exp(atome.getdVie() * temps))); // loi decroissance radio
-                        atomedes.setpop1(atome.pop2);
+                                             Math.exp(-( temps/atome.getdVie() )))); // loi decroissance radio N(t)=No*Exp(-At)
+                        
                         des = Math.abs(atome.getpop2() - atome.getpop1());
-                        atomedes.setpop2(des);
+                        atomedes.setpop1(atomedes.pop2);
+                        atomedes.setpop2(atomedes.getpop1()+des);
                         ListeElem.set(i, atomedes);
                         At He = ListeElem.get(posHel); // trouve élém Helium, pop1 pop précédente, pop2 nouvelle pop
                         He.setpop1(He.getpop2());
@@ -99,10 +109,11 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) (atome.popIni *
-                                             Math.exp(atome.getdVie() * temps))); // loi decroissance radio
-                        atomedes.setpop1(atome.pop2);
+                                             Math.exp(-( temps/atome.getdVie() )))); // loi decroissance radio N(t)=No*Exp(-At)
+                        
                         des = Math.abs(atome.getpop2() - atome.getpop1());
-                        atomedes.setpop2(des);
+                        atomedes.setpop1(atomedes.pop2);
+                        atomedes.setpop2(atomedes.getpop1()+des);
                         ListeElem.set(i, atomedes);
                         At El = ListeElem.get(posElec); // trouve élém Elec, pop1 pop précédente, pop2 nouvelle pop
                         El.setpop1(El.getpop2());
@@ -121,10 +132,11 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) (atome.popIni *
-                                             Math.exp(atome.getdVie() * temps))); // loi decroissance radio
-                        atomedes.setpop1(atome.pop2);
+                                             Math.exp(-( temps/atome.getdVie() )))); // loi decroissance radio N(t)=No*Exp(-At)
+                        
                         des = Math.abs(atome.getpop2() - atome.getpop1());
-                        atomedes.setpop2(des);
+                        atomedes.setpop1(atomedes.pop2);
+                        atomedes.setpop2(atomedes.getpop1()+des);
                         ListeElem.set(i, atomedes);
                         At Pro = ListeElem.get(posProt); // trouve élém Proton, pop1 pop précédente, pop2 nouvelle pop
                         Pro.setpop1(Pro.getpop2());
@@ -194,6 +206,7 @@ public class Princip {
             atome = ListeElem.get(i);
             desint(atome);
             atome.activite();
+            ListeElem.set(i, atome);
         }
         majTabElem();
         //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
@@ -212,8 +225,8 @@ public class Princip {
         // ActionListener appProee tous les interval millisecondes
 
         public void actionPerformed(ActionEvent e) {
-            //boucle_principale();
-            testTimer();
+            boucle_principale();
+            //testTimer();
 
 
             temps = temps + getdelay();

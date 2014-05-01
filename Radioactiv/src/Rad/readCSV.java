@@ -16,85 +16,6 @@ import java.util.List;
  */
 public class readCSV {
 
-    public static void convertCsvToJavaAt(ArrayList ListeElem) {
-        String csvFileToRead = "csvFiles/Elements.csv";
-        BufferedReader br = null;
-        String line = ";";
-        String splitBy = ",";
-        // doit utiliser une liste déjà crée
-
-
-        try {
-
-            br = new BufferedReader(new FileReader(csvFileToRead));
-            while ((line = br.readLine()) != null) {
-
-                // split on comma(',')
-                String[] elements = line.split(splitBy);
-
-                // create  object to store values
-                At atObjet = new At();
-
-                // add values from csv to At object
-                //nom/abr/Z/N/type
-                atObjet.setnom(elements[0]);
-                atObjet.setabr(elements[1]);
-                atObjet.setZ(Integer.parseInt(elements[2]));
-                atObjet.setN(Integer.parseInt(elements[3]));
-                atObjet.setA(Integer.parseInt(elements[3]) + Integer.parseInt(elements[2]));
-                String type = elements[4];
-                switch (type) {
-                case "alpha":
-                    {
-                        atObjet.settype(1);
-                    }
-                    break;
-                case "Beta -":
-                    {
-                        atObjet.settype(2);
-                    }
-                    break;
-                case "Beta +":
-                    {
-                        atObjet.settype(3);
-                    }
-                    break;
-                case "Gamma":
-                    {
-                        atObjet.settype(4);
-                    }
-                    break;
-                case "":
-                    {
-                        atObjet.settype(0);
-                    }
-                    break;
-
-
-                }
-
-
-                // adding objects to a list
-                ListeElem.add(atObjet);
-
-            }
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     
     public static void convertCsvToJavaAt2(ArrayList ListeElem) {
         String csvFileToRead = "csvFiles/Elements.csv";
@@ -155,8 +76,11 @@ public class readCSV {
                     break;
 
                 }
-                atRObjet.setdVie(Double.parseDouble(elements[6]));
+                String vie= elements[6];
+                atRObjet.setdVie(Double.parseDouble(vie));
                 atRObjet.setaffiche(false);
+                atRObjet.setpopIni(30); //test
+                System.out.println(vie);
                 atRObjet.toPrint();
 
 
