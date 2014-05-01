@@ -1,5 +1,5 @@
 package Rad;
-//change2
+//change
 /*TODO
  * Gestion des modifications pour le tableau : affichage et popIni
  * /////
