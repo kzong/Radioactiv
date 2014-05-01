@@ -1,6 +1,6 @@
 
 package Rad;
-//change
+//change2
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import Rad.MyTableModel_1;
