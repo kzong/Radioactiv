@@ -20,7 +20,9 @@ public class At {
     protected double dVie;
 
     public At() {
+        
         super();
+        
     }
 
     public String getnom() {
@@ -137,6 +139,6 @@ public class At {
     
     public void addPoint(){
         double[] coord={this.getpop2(), Princip.gettemps()};
-        graph.add(coord);
+        this.graph.add(coord);
     }
 }
