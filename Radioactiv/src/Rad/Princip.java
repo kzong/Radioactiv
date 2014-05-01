@@ -170,7 +170,7 @@ public class Princip {
             atome = ListeElem.get(i);
             desintAt(atome);
             atome.activite();
-            atome.addPoint();
+            //atome.addPoint();
             ListeElem.set(i, atome);
         }
     }
