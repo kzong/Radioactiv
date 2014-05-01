@@ -1,4 +1,7 @@
 package Rad;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 //test
 public class At {
     protected String nom;
@@ -12,6 +15,7 @@ public class At {
     protected int popIni;
     protected boolean affiche;
     protected double activite;
+    ArrayList<double[]> graph;
 
     protected double dVie;
 
@@ -129,5 +133,10 @@ public class At {
     
     public void toPrint(){
         System.out.println(this.nom+" "+this.abr+" "+this.A+" "+this.Z+" "+this.N+" "+this.type+" "+this.dVie);
+    }
+    
+    public void addPoint(){
+        double[] coord={this.getpop2(), Princip.gettemps()};
+        graph.add(coord);
     }
 }

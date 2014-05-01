@@ -45,8 +45,11 @@ public class InterfGraph extends javax.swing.JFrame {
         jTable1 = new JTable(new MyTableModel_1());
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jDesktopPane1.setBorder(new javax.swing.border.MatteBorder(null));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,7 +71,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PlayActionPerformed(evt);
             }
         });
-        Play.setBounds(60, 600, 152, 21);
+        Play.setBounds(40, 600, 152, 21);
         jDesktopPane1.add(Play, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Stop.setText("Fin");
@@ -77,7 +80,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 StopActionPerformed(evt);
             }
         });
-        Stop.setBounds(250, 600, 48, 21);
+        Stop.setBounds(370, 600, 90, 21);
         jDesktopPane1.add(Stop, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Pause.setText("Pause/Reprendre");
@@ -86,7 +89,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PauseActionPerformed(evt);
             }
         });
-        Pause.setBounds(330, 600, 118, 21);
+        Pause.setBounds(220, 600, 118, 21);
         jDesktopPane1.add(Pause, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jSlideVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -110,7 +113,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jButton1.setBounds(260, 520, 55, 21);
+        jButton1.setBounds(20, 520, 55, 21);
         jDesktopPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTextField1.setText("jTextField1");
@@ -119,8 +122,12 @@ public class InterfGraph extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jTextField1.setBounds(470, 510, 100, 50);
+        jTextField1.setBounds(140, 630, 830, 20);
         jDesktopPane1.add(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel1.setText("Temps Ecoulé");
+        jLabel1.setBounds(50, 630, 80, 20);
+        jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,6 +184,7 @@ public class InterfGraph extends javax.swing.JFrame {
     private javax.swing.JToggleButton Stop;
     private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlideVitesse;
     protected static javax.swing.JTable jTable1;
