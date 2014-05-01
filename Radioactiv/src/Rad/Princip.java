@@ -170,7 +170,7 @@ public class Princip {
             atome = ListeElem.get(i);
             desintAt(atome);
             atome.activite();
-            //atome.addPoint(); //marche pas pour le moment
+            atome.addPoint(); //marche pas pour le moment
             ListeElem.set(i, atome);
         }
     }
@@ -239,10 +239,7 @@ public class Princip {
         public void actionPerformed(ActionEvent e) {
             boucle_principale();
             //testTimer();
-
-
             temps = temps + getdelay();
-            System.out.println(temps);
             afficheTemps();
         }
 
@@ -420,26 +417,6 @@ public class Princip {
         tabElem = fillData();
     }
 
-    public static void tabToPrint(Object[][] tab) {
-        for (int i = 0; i < tab.length; i++) {
-            for (int j = 0; j < tab[0].length; j++) {
-                System.out.print(tab[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static void jtabToPrint(JTable tab) {
-
-        for (int i = 0; i < tab.getRowCount(); i++) {
-            for (int j = 0; j < tab.getColumnCount(); j++) {
-                System.out.print(tab.getValueAt(i, j));
-            }
-            System.out.println();
-        }
-        System.out.println("c'était un jtab");
-    }
-
     public void afficheTemps() {
         //nécessité de double car valmax int (2 octet) est 2147483647 et que l'on travaille en plusieurs miliards d'années
         double c;
@@ -509,6 +486,26 @@ public class Princip {
     }
 
 
+//fonctions de test de bon remplissage des tableaux
+    public static void tabToPrint(Object[][] tab) {
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[0].length; j++) {
+                System.out.print(tab[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void jtabToPrint(JTable tab) {
+
+        for (int i = 0; i < tab.getRowCount(); i++) {
+            for (int j = 0; j < tab.getColumnCount(); j++) {
+                System.out.print(tab.getValueAt(i, j));
+            }
+            System.out.println();
+        }
+        System.out.println("c'était un jtab");
+    }
 }
 
 

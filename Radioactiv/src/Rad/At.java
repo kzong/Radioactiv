@@ -15,7 +15,7 @@ public class At {
     protected int popIni;
     protected boolean affiche;
     protected double activite;
-    ArrayList<double[]> graph;
+    ArrayList<double[]> graph = new ArrayList();
 
     protected double dVie;
 

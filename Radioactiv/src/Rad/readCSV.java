@@ -80,8 +80,8 @@ public class readCSV {
                 atRObjet.setdVie(Double.parseDouble(vie));
                 atRObjet.setaffiche(false);
                 atRObjet.setpopIni(30); //test
-                System.out.println(vie);
-                atRObjet.toPrint();
+                //System.out.println(vie);
+               // atRObjet.toPrint();
 
 
                 // adding car objects to a list
