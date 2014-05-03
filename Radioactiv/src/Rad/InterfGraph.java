@@ -3,6 +3,7 @@ package Rad;
 //change2
 import javax.swing.JSlider;
 import javax.swing.JTable;
+
 import Rad.MyTableModel_1;
 
 
@@ -18,12 +19,13 @@ import javax.swing.table.TableModel;
  * @author ENZO
  */
 
-public class InterfGraph extends javax.swing.JFrame {
+public class InterfGraph extends javax.swing.JFrame implements TableModelListener {
 
     /** Creates new form InterfGraph */
     public InterfGraph() {
         initComponents();
-        
+        jTable1.getModel().addTableModelListener(this);
+
     }
 
     /** This method is called from within the constructor to
@@ -46,6 +48,7 @@ public class InterfGraph extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +74,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PlayActionPerformed(evt);
             }
         });
-        Play.setBounds(40, 600, 152, 21);
+        Play.setBounds(40, 600, 170, 21);
         jDesktopPane1.add(Play, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Stop.setText("Fin");
@@ -80,7 +83,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 StopActionPerformed(evt);
             }
         });
-        Stop.setBounds(370, 600, 90, 21);
+        Stop.setBounds(400, 600, 160, 21);
         jDesktopPane1.add(Stop, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Pause.setText("Pause/Reprendre");
@@ -89,7 +92,7 @@ public class InterfGraph extends javax.swing.JFrame {
                 PauseActionPerformed(evt);
             }
         });
-        Pause.setBounds(220, 600, 118, 21);
+        Pause.setBounds(220, 600, 170, 21);
         jDesktopPane1.add(Pause, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jSlideVitesse.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -129,6 +132,15 @@ public class InterfGraph extends javax.swing.JFrame {
         jLabel1.setBounds(50, 630, 80, 20);
         jDesktopPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jButton2.setText("Reset All");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.setBounds(240, 550, 130, 21);
+        jDesktopPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,11 +170,11 @@ public class InterfGraph extends javax.swing.JFrame {
     private void jSlideVitesseStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlideVitesseStateChanged
         // TODO add your handling code here:
         JSlider source = jSlideVitesse;
-            if (!source.getValueIsAdjusting()) {
-                double Vit = (double)source.getValue()/1000;
-                Princip.setdelay((int)((Vit)*Princip.getdelay()));
-                    
-                }
+        if (!source.getValueIsAdjusting()) {
+            double Vit = (double) source.getValue() / 1000;
+            Princip.setdelay((int) ((Vit) * Princip.getdelay()));
+
+        }
             
         
     }//GEN-LAST:event_jSlideVitesseStateChanged
@@ -176,6 +188,10 @@ public class InterfGraph extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Princip.resetButton();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static javax.swing.JScrollPane ElementsTable;
@@ -183,6 +199,7 @@ public class InterfGraph extends javax.swing.JFrame {
     private javax.swing.JToggleButton Play;
     private javax.swing.JToggleButton Stop;
     private javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -192,76 +209,90 @@ public class InterfGraph extends javax.swing.JFrame {
     private javax.swing.JPopupMenu menuInit;
     // End of variables declaration//GEN-END:variables
 
-    public static void setjTable1(){
-        //clearTable(jTable1);
-        //test Princip.jtabToPrint(jTable1);
+    public static JTable getjTable1() {
+        return jTable1;
+    }
+
+    public static void setjTable1() { //rempli et rafraichit l'affichage du tableau à l'aide de la liste
+
         fillTable(jTable1);
         refreshTab();
     }
-    
-    public static JTable getjTable1(){
-        return jTable1;
+
+    public static void fillTable(JTable table) {
+        Object[][] tableprov = Princip.listTo2dTab(); // permet d'appeler une seule fois listTo2dTab
+        for (int i = 0; i < table.getRowCount(); i++) {
+            for (int j = 0; j < table.getColumnCount(); j++) {
+                table.setValueAt(tableprov[i][j], i, j);
+            }
+        }
     }
-    
-    public static void refreshTab(){
+
+
+    public static void refreshTab() {
         jTable1.revalidate();
-        
+
     }
-    
-    public static void textsetjTextField1(String t){
+
+    public static void textsetjTextField1(String t) {
         jTextField1.setText(t);
     }
-    
-    public static void fillTable( JTable table) {
-        for (int i = 0; i < table.getRowCount(); i++){
-          for(int j = 0; j < table.getColumnCount(); j++) {
-              table.setValueAt(Princip.gettabElem()[i][j], i, j);
-          }
-       }
+
+
+    public static void clearTable(JTable table) {
+        for (int i = 0; i < table.getRowCount(); i++) {
+            for (int j = 0; j < table.getColumnCount(); j++) {
+                table.setValueAt("", i, j);
+            }
+        }
     }
-    
-    public static void clearTable( JTable table) {
-        for (int i = 0; i < table.getRowCount(); i++){
-          for(int j = 0; j < table.getColumnCount(); j++) {
-              table.setValueAt("", i, j);
-          }
-       }
-    }
+
+
+    @Override
 
     public void tableChanged(TableModelEvent e) {
         /*
          * Les 2 colonnes modifiables sont la 1: affiche et la 8, popini, modifiable avant le démarrage.
          * dans 1, la valeur est boolean, dans 8 entière.
          * on met a jour les valeurs dans l'arraylist, puis on recrée le tableau.
-         * TODO: voir si on ne peut pas changer les valeurs du tableau plutot que refaire le tableau
+         * TODO:
          */
+        if (Princip.getfinInit()) {
             int row = e.getFirstRow();
             int column = e.getColumn();
-            MyTableModel_1 model = ( MyTableModel_1)e.getSource();
+            MyTableModel_1 model = (MyTableModel_1) e.getSource();
             String columnName = model.getColumnName(column);
             Object data = model.getValueAt(row, column);
-            
-            switch(column){
-            case 0: {
-                        boolean value=(Boolean) data;
-                        if(Princip.searchAfficheTrue()!=-1){
-                            At prov=Princip.getElemListeElem(row);
-                            prov.setaffiche(false);
-                            Princip.setElemListeElem(row,prov);
-                        }
-                    At prov2=Princip.getElemListeElem(row);
+
+            switch (column) {
+            case 0:
+                {
+                    boolean value = (Boolean) data;
+                    if (Princip.searchAfficheTrue() != -1) {
+                        int pos = Princip.searchAfficheTrue();
+                        At prov = Princip.getElemListeElem(pos);
+                        prov.setaffiche(false);
+                        Princip.setElemListeElem(pos, prov);
+                        jTable1.setValueAt(false, pos,0);
+                    }
+                    At prov2 = Princip.getElemListeElem(row);
                     prov2.setaffiche(value);
-                    Princip.setElemListeElem(row,prov2);
-                }break;
-                case 8: {
-                            int value= (Integer) data;
-                        At prov=Princip.getElemListeElem(row);
-                        prov.setpopIni(value);
-                        Princip.setElemListeElem(row,prov);
-                    }break;
-               
+                    Princip.setElemListeElem(row, prov2);
+                    
+                }
+                break;
+
+            case 8:
+                {
+                    int value = (Integer) data;
+                    At prov = Princip.getElemListeElem(row);
+                    prov.setpopIni(value);
+                    Princip.setElemListeElem(row, prov);
+                    
+                }
+                break;
+
             }
-            Princip.majTabElem();
-            
         }
+    }
 }

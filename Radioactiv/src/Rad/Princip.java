@@ -15,6 +15,12 @@ package Rad;
  *(à re tester de plus près) URGENT : problème d'arrondis dans desint, d'où une population croissante d'un atome radioactif qui ne peut que se désintégrer
  * GAMMA !
  */
+
+/*DONE
+ * Se passer du tableau intermédiaire : correspondance directe Jtab et liste
+ * 
+ * 
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,24 +53,26 @@ public class Princip {
     protected static double temps; //temps écoulé
     protected static ArrayList<At> ListeElem =
         new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'où une surchage de parcours
-    protected static Object[][] tabElem; //tableau qui fait le lien entre jTable affichée et l'Array List
+   
 
     //position dans les diverses tables des 3 particules les plus utilisées, afin de ne pas avoir à les rechercher à chaque fois.
     protected int posElec;
     protected int posHel;
     protected int posProt;
     //booléennes qui indiquent l'état du programme
-    protected static boolean StartSim = false; //false= attend conditions initiales
+    protected static boolean startSim = false; //false= attend conditions initiales
     protected static boolean finSim = false; //true= appuyé sur fin ou pop nulle pour tous les atomes radio
-    InterfGraph fen;
-    public static Object[][] test2 = MyTableModel_1.fillIni();
+    protected static boolean finInit = false;
+     static InterfGraph fen;
+    public static Princip Rad;
+   
 
 
     public Princip() {
 
         //rempli la liste des atomes
         Origin(); // met en place timer
-        InterfGraph.setjTable1();
+        
         // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
     }
 
@@ -182,8 +190,6 @@ public class Princip {
         // readCSV.convertCsvToJavaAt(ListeElem);
         readCSV.convertCsvToJavaAt2(ListeElem);
         searchPosParticule();
-        majTabElem(); //rempli un tableau à partir de l'ArrayList
-        //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames()); //inutile ?
 
         fen = new InterfGraph();
         InterfGraph.setjTable1();
@@ -198,7 +204,8 @@ public class Princip {
         timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
         InterfGraph.textsetjTextField1("Timer");
-
+        InterfGraph.setjTable1();
+        setfinInit(true);
 
     }
 
@@ -206,7 +213,6 @@ public class Princip {
         At test = getElemListeElem(0);
         test.setA(test.getA() + 1);
         setElemListeElem(0, test);
-        majTabElem();
         InterfGraph.setjTable1();
         InterfGraph.refreshTab();
 
@@ -220,7 +226,6 @@ public class Princip {
         * rafraichit l'interface
         */
         desint();
-        majTabElem();
         //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
         InterfGraph.setjTable1();
         InterfGraph.refreshTab();
@@ -229,8 +234,9 @@ public class Princip {
     }
 
     public static void main(String[] args) {
-        Princip Rad = new Princip();
+        Rad=new Princip();
     }
+
 
     private class TimerAction implements ActionListener {
 
@@ -245,7 +251,7 @@ public class Princip {
 
     }
 
-    public static Object[][] fillData() {
+    public static Object[][] listTo2dTab() {
         /*
          * rempli un tableau 2D à partir de ListeElem
          */
@@ -292,17 +298,26 @@ public class Princip {
      * Implémentation Boutons
      */
     public static void testButton() {
-        At test = getElemListeElem(0);
+        /*At test = getElemListeElem(0);
         test.setnom("coucou");
         setElemListeElem(0, test);
         test.toPrint();
         At newat = test;
         ListeElem.add(newat);
-        majTabElem();
-        tabToPrint(tabElem);
         InterfGraph.setjTable1();
+        */
+        
         jtabToPrint(InterfGraph.getjTable1());
-        InterfGraph.refreshTab();
+        listToPrint();
+        
+        InterfGraph.setjTable1();
+    }
+    
+    public static void resetButton(){
+        fen.dispose();
+        stopButton();
+
+        Rad=new Princip();
     }
 
     public static void stopButton() {
@@ -310,15 +325,15 @@ public class Princip {
             timer.stop();
         }
         setfinSim(true);
-        setStartSim(false);
+        setstartSim(false);
     }
 
     public static void pauseButton() {
-        if (timer.isRunning() & getStartSim()) {
+        if (timer.isRunning() & getstartSim()) {
             timer.stop();
         }
 
-        else if (timer.isRunning() == false & getStartSim()) {
+        else if (timer.isRunning() == false & getstartSim()) {
             timer.start();
         } else {
         }
@@ -326,9 +341,9 @@ public class Princip {
     }
 
     public static void playButton() {
-        if (getStartSim() == false & getfinSim() == false) {
+        if (getstartSim() == false & getfinSim() == false) {
             timer.start();
-            setStartSim(true);
+            setstartSim(true);
         } else {
         }
 
@@ -353,20 +368,12 @@ public class Princip {
         return at;
     }
 
-    public static Object[][] gettabElem() {
-        return tabElem;
+    public static boolean getstartSim() {
+        return startSim;
     }
 
-    public static void settabElem(Object[][] t) {
-        tabElem = t;
-    }
-
-    public static boolean getStartSim() {
-        return StartSim;
-    }
-
-    public static void setStartSim(boolean S) {
-        StartSim = S;
+    public static void setstartSim(boolean S) {
+        startSim = S;
     }
 
     public static boolean getfinSim() {
@@ -376,7 +383,14 @@ public class Princip {
     public static void setfinSim(boolean f) {
         finSim = f;
     }
+    
+    public static boolean getfinInit() {
+        return finInit;
+    }
 
+    public static void setfinInit(boolean S) {
+        finInit = S;
+    }
     public static int getT() {
         return T;
     }
@@ -411,10 +425,6 @@ public class Princip {
             }
         }
         return pos;
-    }
-
-    public static void majTabElem() {
-        tabElem = fillData();
     }
 
     public void afficheTemps() {
@@ -487,6 +497,13 @@ public class Princip {
 
 
 //fonctions de test de bon remplissage des tableaux
+    public static void listToPrint(){
+        for (int i = 0; i < ListeElem.size(); i++) {
+           ListeElem.get(i).toPrint();
+        }
+        
+    }
+    
     public static void tabToPrint(Object[][] tab) {
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
