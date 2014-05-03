@@ -16,7 +16,8 @@ public class At {
     protected int popIni;
     protected boolean affiche;
     protected double activite;
-    ArrayList<double[]> graph = new ArrayList();
+    ArrayList<double[]> graphPop = new ArrayList();
+    ArrayList<double[]> graphAct = new ArrayList();
 
     protected double dVie;
 
@@ -129,7 +130,8 @@ public class At {
 
     public void activite() {
         double t = Princip.getdelay();
-        activite = Math.abs(pop1 - pop2) / (t);
+        activite = ((double)ajoutPop) / t;
+        if(ajoutPop==0){activite =0;} // sert à avoir un vrai 0
     }
 
 
@@ -146,8 +148,14 @@ public class At {
         System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
     }
     
-    public void addPoint(){
-        double[] coord={this.getpop2(), Princip.gettemps()};
-        this.graph.add(coord);
+    public void addPointPop(){
+        double[] coord={this.getpop1(), Princip.gettemps()};
+        this.graphPop.add(coord);
     }
+    
+    public void addPointAct(){
+        double[] coord={this.getactivite(), Princip.gettemps()};
+        this.graphAct.add(coord);
+    }
+    
 }

@@ -79,12 +79,10 @@ public class readCSV {
                 String vie= elements[6];
                 atRObjet.setdVie(Double.parseDouble(vie));
                 atRObjet.setaffiche(false);
-                atRObjet.setpopIni(30); //test
-                //System.out.println(vie);
-               // atRObjet.toPrint();
-
-
-                // adding car objects to a list
+                atRObjet.setpopIni(0);
+                atRObjet.setpop1(0);
+                atRObjet.setpop2(0);
+                atRObjet.setajoutPop(0);
                 ListeElem.add(atRObjet);
 
             }
