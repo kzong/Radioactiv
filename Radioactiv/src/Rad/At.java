@@ -11,6 +11,7 @@ public class At {
     protected int N;
     protected int type;
     protected int pop2;
+    protected int ajoutPop;
     protected int pop1;
     protected int popIni;
     protected boolean affiche;
@@ -51,6 +52,10 @@ public class At {
 
     public int getpop2() {
         return pop2;
+    }
+    
+    public int getajoutPop() {
+        return ajoutPop;
     }
 
     public int getpop1() {
@@ -95,6 +100,10 @@ public class At {
 
     public void setpop2(int p2) {
         pop2 = p2;
+    }
+
+    public void setajoutPop(int aj) {
+        ajoutPop = aj;
     }
 
     public void setpop1(int p1) {

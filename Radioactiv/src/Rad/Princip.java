@@ -69,8 +69,8 @@ public class Princip {
     }
 
     public void desintAt(At atome) {
-        /*
-        *Prend un atome et en réalise la désintégration :
+        
+        /*Prend un atome et en réalise la désintégration :
         détemine en quel élément il se désintégre selon le type de désintégration
         parcourt la liste pour trouver l'atome crée, met à  jour les populations
         Si une particule est émise, sa position est connue et sa population mise Ã  jour.
@@ -79,12 +79,35 @@ public class Princip {
         At atomedes; //atome fruit de la désintégration
         int posAtome; //position
         int des = 0; //population desintégrée
+        
+
+        
         switch (atome.gettype()) {
         case 0:
             break;
         case 1:
             { //alpha
                 for (int i = 0; i < ListeElem.size(); i++) {
+                    atomeprov = ListeElem.get(i);
+                    if (atomeprov.getA() == (atome.getA() - 4) & atomeprov.getZ() == (atome.getZ() - 2)) { //trouve le nouvel élément
+                        atomedes = atomeprov;
+                        atome.setpop1(atome.pop2);
+                        int newPop=(int) Math.ceil((atome.popIni *
+                                                       Math.exp(-(temps /
+                                                                  atome.getdVie())))); // loi decroissance radio N(t)=No*Exp(-At)
+                        atome.setpop2(atome.getpop1()+newPop); // loi decroissance radio N(t)=No*Exp(-At)
+                        atome.setajoutPop(atome.getajoutPop()+newPop);
+                        atomedes.setajoutPop(atomedes.getpop2()+newPop);
+                        ListeElem.set(i, atomedes);
+                        At He = ListeElem.get(posHel); // trouve élém Helium, pop1 pop précédente, pop2 nouvelle pop
+                        He.setajoutPop(He.getajoutPop()+newPop);
+                        ListeElem.set(posHel, He);
+                    }
+                }
+
+            }
+            /*
+             *                 for (int i = 0; i < ListeElem.size(); i++) {
                     atomeprov = ListeElem.get(i);
                     if (atomeprov.getA() == (atome.getA() - 4) & atomeprov.getZ() == (atome.getZ() - 2)) {
                         atomedes = atomeprov;
@@ -105,6 +128,7 @@ public class Princip {
                 }
 
             }
+             */
             break;
         case 2:
             { //Beta moins
@@ -169,8 +193,14 @@ public class Princip {
         for (int i = 0; i < ListeElem.size(); i++) {
             atome = ListeElem.get(i);
             desintAt(atome);
+            ListeElem.set(i, atome);
+        }
+        for (int i = 0; i < ListeElem.size(); i++) {
+            atome = ListeElem.get(i);
+            atome.setajoutPop(0);
             atome.activite();
-            atome.addPoint(); //marche pas pour le moment
+            atome.addPoint();
+            
             ListeElem.set(i, atome);
         }
     }
