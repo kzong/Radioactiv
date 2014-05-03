@@ -26,10 +26,10 @@ public class readCSV {
 
 
         try {
-
+int count=0;
             br = new BufferedReader(new FileReader(csvFileToRead));
             while ((line = br.readLine()) != null) {
-
+                    count++;
                 // split on comma(',')
                 String[] elements = line.split(splitBy);
 
@@ -78,7 +78,8 @@ public class readCSV {
                 }
                 String vie= elements[6];
                 atRObjet.setdVie(Double.parseDouble(vie));
-                atRObjet.setaffiche(false);
+                if(count==1){atRObjet.setaffiche(true);}
+                else{atRObjet.setaffiche(false);}
                 atRObjet.setpopIni(0);
                 atRObjet.setpop1(0);
                 atRObjet.setpop2(0);

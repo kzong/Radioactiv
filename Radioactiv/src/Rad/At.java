@@ -145,7 +145,8 @@ public class At {
     }
     
     public void toPrint(){
-        System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
+       // System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
+       System.out.println(this.getaffiche());
     }
     
     public void addPointPop(){

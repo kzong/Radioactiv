@@ -606,12 +606,12 @@ public class Princip {
         return Type;
     }
 
-    public static void displayGraph() {
+    public void displayGraph() {
         int pos = searchAfficheTrue();
         if (pos != -1) {
             At atome = ListeElem.get(pos);
-            InterfGraph.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
-            InterfGraph.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
+            fen.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
+            fen.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
         }
     }
 
@@ -637,11 +637,27 @@ public class Princip {
 
         for (int i = 0; i < tab.getRowCount(); i++) {
             for (int j = 0; j < tab.getColumnCount(); j++) {
-                System.out.print(tab.getValueAt(i, j));
+                System.out.print(tab.getValueAt(i, 0));
             }
             System.out.println();
         }
         System.out.println("c'était un jtab");
+    }
+    
+    public static int countAfficheTrue(){
+        int count=0;
+        for (int i = 0; i < ListeElem.size(); i++) {
+            if(ListeElem.get(i).getaffiche()==true){count++;}
+        }
+        return count;
+    }
+    
+    public static int countAfficheTruejT(){
+        int count=0;
+            for (int i = 0; i < InterfGraph.getjTable1().getRowCount(); i++) {
+            if(InterfGraph.getjTable1().getValueAt(i, 0)==true){count++;}
+        }
+        return count;
     }
 }
 

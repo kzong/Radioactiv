@@ -7,7 +7,10 @@ import javax.swing.JTable;
 import Rad.MyTableModel_1;
 
 
+import java.awt.Color;
+
 import java.util.EventListener;
+
 import org.math.plot.*;
 
 import javax.swing.SwingUtilities;
@@ -22,12 +25,15 @@ import javax.swing.table.TableModel;
 
 public class InterfGraph extends javax.swing.JFrame implements TableModelListener {
 
+    protected Plot2DPanel jPPop = new Plot2DPanel();
+    protected Plot2DPanel jPAct = new Plot2DPanel();
+
     /** Creates new form InterfGraph */
     public InterfGraph() {
         initComponents();
         customInitComponents();
         jTable1.getModel().addTableModelListener(this);
-        
+
 
     }
 
@@ -158,35 +164,32 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     }//GEN-END:initComponents
 
 
-    protected void customInitComponents(){
-       
+    protected void  customInitComponents() {
+        jTabbedPane1.addTab("tab1", jPPop);
         javax.swing.GroupLayout jPPopLayout = new javax.swing.GroupLayout(jPPop);
         jPPop.setLayout(jPPopLayout);
-        jPPopLayout.setHorizontalGroup(
-            jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-        jPPopLayout.setVerticalGroup(
-            jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
-        );
-        jTabbedPane1.addTab("tab1", jPPop);
+        jPPopLayout.setHorizontalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                         575,
+                                                                                                                         Short.MAX_VALUE));
+        jPPopLayout.setVerticalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                       327,
+                                                                                                                       Short.MAX_VALUE));
+
         jPPop.setVisible(true);
-        
-        javax.swing.GroupLayout jPActLayout = new javax.swing.GroupLayout(jPAct);
-        jPAct.setLayout(jPActLayout);
-        jPActLayout.setHorizontalGroup(
-            jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-        jPActLayout.setVerticalGroup(
-            jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
-        );
 
         jTabbedPane1.addTab("tab2", jPAct);
+        javax.swing.GroupLayout jPActLayout = new javax.swing.GroupLayout(jPAct);
+        jPAct.setLayout(jPActLayout);
+        jPActLayout.setHorizontalGroup(jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                         575,
+                                                                                                                         Short.MAX_VALUE));
+        jPActLayout.setVerticalGroup(jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                       327,
+                                                                                                                       Short.MAX_VALUE));
+
+
         jPAct.setVisible(true);
-        
+
     }
     private void PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayActionPerformed
         Princip.playButton();
@@ -242,8 +245,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     protected static javax.swing.JTextField jTextField1;
     private javax.swing.JPopupMenu menuInit;
     // End of variables declaration//GEN-END:variables
-    protected static Plot2DPanel jPPop = new Plot2DPanel();
-    protected static Plot2DPanel jPAct = new Plot2DPanel();
+   
 
     public static JTable getjTable1() {
         return jTable1;
@@ -282,20 +284,21 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
             }
         }
     }
-    
-    public static void setjPPop(String s, double[] x, double[] y){
-        jPPop.addLinePlot(s,x,y);
-        jPPop.revalidate();
+
+    public void setjPPop(String s, double[] x, double[] y) {
+        jPPop.addLinePlot(s,Color.red, x, y);
+        jPPop.repaint();
+        
     }
-    
-    public static void setjPAct(String s, double[] x, double[] y){
-        jPAct.addLinePlot(s,x,y);
+
+    public void setjPAct(String s, double[] x, double[] y) {
+        jPAct.addLinePlot(s,Color.red, x, y);
         jPAct.revalidate();
+        
     }
 
 
     @Override
-
     public void tableChanged(TableModelEvent e) {
         /*
          * Les 2 colonnes modifiables sont la 1: affiche et la 8, popini, modifiable avant le démarrage.
@@ -313,18 +316,56 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
             switch (column) {
             case 0:
                 {
+                    int pos = Princip.searchAfficheTrue();
                     boolean value = (Boolean) data;
-                    if (Princip.searchAfficheTrue() != -1) {
+                    if (value == true) {
+                        if (Princip.searchAfficheTrue() != -1 & Princip.countAfficheTruejT() == 2) {
+                           
+                            if (pos != row) {
+                                jTable1.setValueAt(false, pos, 0);
+                                At prov = Princip.getElemListeElem(pos);
+                                prov.setaffiche(false);
+                                Princip.setElemListeElem(pos, prov);
+                            }
+                            At prov2 = Princip.getElemListeElem(row);
+                            prov2.setaffiche(true);
+                            Princip.setElemListeElem(row, prov2);
+                        }
+                        if (Princip.searchAfficheTrue() == -1) {
+                            At prov2 = Princip.getElemListeElem(row);
+                            prov2.setaffiche(true);
+                            Princip.setElemListeElem(row, prov2);
+                        
+                        }
+                        pos=row;
+                    } else if (value == false) {
+                        At prov2 = Princip.getElemListeElem(row);
+                        prov2.setaffiche(false);
+                        Princip.setElemListeElem(row, prov2);
+                    }
+                    /*
+                    if (Princip.searchAfficheTrue() != -1 & value==true) {
                         int pos = Princip.searchAfficheTrue();
                         At prov = Princip.getElemListeElem(pos);
                         prov.setaffiche(false);
                         Princip.setElemListeElem(pos, prov);
                         jTable1.setValueAt(false, pos,0);
+                        At prov2 = Princip.getElemListeElem(row);
+                        prov2.setaffiche(value);
+                        Princip.setElemListeElem(row, prov2);
+                    }
+                    if (Princip.searchAfficheTrue() != -1 & value==false) {
+                        int pos = Princip.searchAfficheTrue();
+                        At prov = Princip.getElemListeElem(pos);
+                        prov.setaffiche(false);
+                        Princip.setElemListeElem(pos, prov);
+                        jTable1.setValueAt(false, pos,0);
+
                     }
                     At prov2 = Princip.getElemListeElem(row);
                     prov2.setaffiche(value);
                     Princip.setElemListeElem(row, prov2);
-                    
+                    */
                 }
                 break;
 
@@ -335,7 +376,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
                     prov.setpopIni(value);
                     prov.setpop1(value);
                     Princip.setElemListeElem(row, prov);
-                    
+
                 }
                 break;
 
