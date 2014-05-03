@@ -416,10 +416,7 @@ public class Princip {
         InterfGraph.setjTable1();
         */
 
-        jtabToPrint(InterfGraph.getjTable1());
-        listToPrint();
-
-        InterfGraph.setjTable1();
+        displayGraph();
     }
 
     public static void resetButton() {
@@ -606,12 +603,13 @@ public class Princip {
         return Type;
     }
 
-    public void displayGraph() {
+    public static void displayGraph() {
         int pos = searchAfficheTrue();
         if (pos != -1) {
             At atome = ListeElem.get(pos);
             fen.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
             fen.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
+            fen.revalidate();
         }
     }
 
