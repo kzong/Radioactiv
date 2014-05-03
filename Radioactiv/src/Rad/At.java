@@ -143,7 +143,7 @@ public class At {
     }
     
     public void toPrint(){
-        System.out.println(this.nom+" "+this.abr+" "+this.A+" "+this.Z+" "+this.N+" "+this.type+" "+this.dVie);
+        System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
     }
     
     public void addPoint(){
