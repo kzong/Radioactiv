@@ -335,7 +335,7 @@ public class Princip {
         * rafraichit l'interface
         */
         desint();
-        //jtabElem = new JTable(tabElem, MyTableModel_1.getColumnNames());
+        displayGraph();
         InterfGraph.setjTable1();
         InterfGraph.refreshTab();
         fen.repaint();
@@ -604,6 +604,15 @@ public class Princip {
             break;
         }
         return Type;
+    }
+
+    public static void displayGraph() {
+        int pos = searchAfficheTrue();
+        if (pos != -1) {
+            At atome = ListeElem.get(pos);
+            InterfGraph.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
+            InterfGraph.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
+        }
     }
 
 

@@ -158,4 +158,36 @@ public class At {
         this.graphAct.add(coord);
     }
     
+    public double[] tabXAct(){
+        double[] tab= new double[graphAct.size()];                       
+        for (int i = 0; i < graphAct.size(); i++) {
+            tab[i]=graphAct.get(i)[0];
+        }
+        return tab;
+    }
+    
+    public double[] tabYAct(){
+        double[] tab= new double[graphAct.size()];                       
+        for (int i = 0; i < graphAct.size(); i++) {
+            tab[i]=graphAct.get(i)[1];
+        }
+        return tab;
+    }
+    
+    public double[] tabXPop(){
+        double[] tab= new double[graphPop.size()];                       
+        for (int i = 0; i < graphPop.size(); i++) {
+            tab[i]=graphPop.get(i)[0];
+        }
+        return tab;
+    }
+    
+    public double[] tabYPop(){
+        double[] tab= new double[graphPop.size()];                       
+        for (int i = 0; i < graphPop.size(); i++) {
+            tab[i]=graphPop.get(i)[1];
+        }
+        return tab;
+    }
+    
 }
