@@ -242,7 +242,7 @@ public class InterfGraph extends javax.swing.JFrame {
             Object data = model.getValueAt(row, column);
             
             switch(column){
-            case 1: {
+            case 0: {
                         boolean value=(Boolean) data;
                         if(Princip.searchAfficheTrue()!=-1){
                             At prov=Princip.getElemListeElem(row);
@@ -250,7 +250,7 @@ public class InterfGraph extends javax.swing.JFrame {
                             Princip.setElemListeElem(row,prov);
                         }
                     At prov2=Princip.getElemListeElem(row);
-                    prov2.setaffiche(true);
+                    prov2.setaffiche(value);
                     Princip.setElemListeElem(row,prov2);
                 }break;
                 case 8: {

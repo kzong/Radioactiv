@@ -1,5 +1,5 @@
 package Rad;
-//change
+
 /*TODO
  * Gestion des modifications pour le tableau : affichage et popIni
  * /////
@@ -34,9 +34,6 @@ import javax.swing.Timer;
  * Reste par Enzo Vironda
  * ReadCSV inspiré de Nagesh Chauhan @http://www.beingjavaguys.com/2013/09/read-and-parse-csv-file-in-java.html
  * Relecture, optimisation, correction par tous
- * TEST DU COMMIT
- * Retest
- * test de la création de branche Workspace Enzo
  */
 
 
