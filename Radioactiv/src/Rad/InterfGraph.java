@@ -25,6 +25,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     public InterfGraph() {
         initComponents();
         jTable1.getModel().addTableModelListener(this);
+        
 
     }
 
