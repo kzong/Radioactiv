@@ -37,6 +37,18 @@
             <value n="id" v="Jmathplot.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Gral-core-0.9.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Gral-examples-0.9.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="VectorGraphics2D-0.9.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -49,11 +61,50 @@
                <value n="id" v="Jmathplot.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../Users/Virginie/Downloads/GRAL-0.9-bin/GRAL-0.9/lib/gral-core-0.9.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Gral-core-0.9.jar"/>
+               <value n="id" v="Gral-core-0.9.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../Users/Virginie/Downloads/GRAL-0.9-bin/GRAL-0.9/lib/gral-examples-0.9.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Gral-examples-0.9.jar"/>
+               <value n="id" v="Gral-examples-0.9.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../Users/Virginie/Downloads/GRAL-0.9-bin/GRAL-0.9/lib/VectorGraphics2D-0.9.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="VectorGraphics2D-0.9.jar"/>
+               <value n="id" v="VectorGraphics2D-0.9.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
          <hash>
             <value n="id" v="Jmathplot.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Gral-core-0.9.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Gral-examples-0.9.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="VectorGraphics2D-0.9.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

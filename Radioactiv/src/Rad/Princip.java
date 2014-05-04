@@ -49,8 +49,9 @@ public class Princip {
 
     protected static int T = 1000; //pas du timer
     protected static double delay = 1; // une seconde  de temps réel = delay secondes de temps
-    static Timer timer;
+    protected static Timer timer;
     protected static double temps; //temps écoulé
+    protected static double tempsprec=0;
     protected static ArrayList<At> ListeElem =
         new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'où une surchage de parcours
 
@@ -72,7 +73,7 @@ public class Princip {
         //rempli la liste des atomes
         Origin(); // met en place timer
 
-        // TODO créer fonction qui remplit les conditions initiales: a priori, tableau éditable avant le play
+     
     }
 
     public void desintAt(At atome) {
@@ -285,9 +286,11 @@ public class Princip {
             atome.activite();
             atome.setajoutPop(0);
             atome.addPointAct();
+            atome.setpopAct(atome.getpop2());
             atome.setpop1(atome.getpop2());
             atome.addPointPop();
             atome.setpop2(0);
+            
             ListeElem.set(i, atome);
         }
     }
@@ -301,19 +304,21 @@ public class Princip {
         searchPosParticule();
 
         fen = new InterfGraph();
-        InterfGraph.setjTable1();
-        InterfGraph.refreshTab();
-
+        fen.setjTable1();
+        fen.refreshTab();
+        
         fen.setVisible(true);
         fen.setResizable(false);
-        fen.revalidate();
-        fen.repaint();
-        SwingUtilities.updateComponentTreeUI(fen);
+        //fen.revalidate();
+        //fen.repaint();
+        //SwingUtilities.updateComponentTreeUI(fen);
 
         timer = new Timer(T, new TimerAction()); //implémenter timeraction Timer(T, new TimerAction())
         temps = 0;
-        InterfGraph.textsetjTextField1("Timer");
-        InterfGraph.setjTable1();
+        fen.textsetjTextField1("Timer");
+        fen.setjTable1();
+        System.out.println("Origin fini");
+        //fen.updateDelay();
         setfinInit(true);
 
     }
@@ -322,8 +327,8 @@ public class Princip {
         At test = getElemListeElem(0);
         test.setA(test.getA() + 1);
         setElemListeElem(0, test);
-        InterfGraph.setjTable1();
-        InterfGraph.refreshTab();
+        fen.setjTable1();
+        fen.refreshTab();
 
     }
 
@@ -336,8 +341,8 @@ public class Princip {
         */
         desint();
         displayGraph();
-        InterfGraph.setjTable1();
-        InterfGraph.refreshTab();
+        fen.setjTable1();
+        fen.refreshTab();
         fen.repaint();
 
     }
@@ -352,9 +357,12 @@ public class Princip {
         // ActionListener appProee tous les interval millisecondes
 
         public void actionPerformed(ActionEvent e) {
+            fen.setDelayAffiche();
+            Princip.setTempsPrec();
+            temps = temps + getdelay();
             boucle_principale();
             //testTimer();
-            temps = temps + getdelay();
+            
             afficheTemps();
         }
 
@@ -424,7 +432,7 @@ public class Princip {
         stopButton();
 
         Rad = new Princip();
-        InterfGraph.setjTable1();
+        fen.setjTable1();
     }
 
     public static void stopButton() {
@@ -550,7 +558,7 @@ public class Princip {
         double sec = (Math.floor(prov));
 
 
-        InterfGraph.textsetjTextField1(an + " années " + jours + " jours " + min + " minutes " + sec + " secondes");
+        fen.textsetjTextField1(an + " années " + jours + " jours " + min + " minutes " + sec + " secondes");
     }
 
     public static String secToTime(double s) {
@@ -607,8 +615,9 @@ public class Princip {
         int pos = searchAfficheTrue();
         if (pos != -1) {
             At atome = ListeElem.get(pos);
-            fen.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
             fen.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
+            fen.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
+            
             fen.revalidate();
         }
     }
@@ -652,11 +661,21 @@ public class Princip {
     
     public static int countAfficheTruejT(){
         int count=0;
-            for (int i = 0; i < InterfGraph.getjTable1().getRowCount(); i++) {
-            if(InterfGraph.getjTable1().getValueAt(i, 0)==true){count++;}
+            for (int i = 0; i < fen.getjTable1().getRowCount(); i++) {
+            if(fen.getjTable1().getValueAt(i, 0)==true){count++;}
         }
         return count;
     }
+    public static double getTempsPrec() {
+        return tempsprec;
+    }
+    
+    public static void setTempsPrec() {
+        Princip.gettemps();
+    }
+    
+    
+   
 }
 
 

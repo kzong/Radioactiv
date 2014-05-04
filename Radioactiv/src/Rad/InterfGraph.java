@@ -9,6 +9,10 @@ import Rad.MyTableModel_1;
 
 import java.awt.Color;
 
+import java.beans.PropertyChangeEvent;
+
+import java.beans.PropertyChangeListener;
+
 import java.util.EventListener;
 
 import org.math.plot.*;
@@ -18,12 +22,13 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+
 /**
  *
  * @author ENZO
  */
 
-public class InterfGraph extends javax.swing.JFrame implements TableModelListener {
+public class InterfGraph extends javax.swing.JFrame implements TableModelListener , PropertyChangeListener{
 
     protected Plot2DPanel jPPop = new Plot2DPanel();
     protected Plot2DPanel jPAct = new Plot2DPanel();
@@ -32,7 +37,18 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     public InterfGraph() {
         initComponents();
         customInitComponents();
+        PropertyChangeListener delayListener= new PropertyChangeListener(){    public void propertyChange(PropertyChangeEvent e) {
+        Object source = e.getSource();
+        if(source==jFormattedTextField1  ||  source==jFormattedTextField2 ||  source==jFormattedTextField3 ||  source==jFormattedTextField4){
+            updateDelay();
+        }
+    }};
         jTable1.getModel().addTableModelListener(this);
+        jFormattedTextField1.addPropertyChangeListener("value",delayListener);
+jFormattedTextField2.addPropertyChangeListener("value",delayListener);
+jFormattedTextField3.addPropertyChangeListener("value",delayListener);
+jFormattedTextField4.addPropertyChangeListener("value",delayListener);
+        
 
 
     }
@@ -61,6 +77,15 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,7 +148,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
                 jTextField1ActionPerformed(evt);
             }
         });
-        jTextField1.setBounds(140, 820, 830, 20);
+        jTextField1.setBounds(140, 820, 640, 20);
         jDesktopPane1.add(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel1.setText("Temps Ecoulé");
@@ -140,8 +165,51 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         jDesktopPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jTabbedPane1.setBounds(30, 30, 580, 350);
         jDesktopPane1.add(jTabbedPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jTabbedPane1.addTab("Population", jPPop);
         jTabbedPane2.setBounds(30, 400, 580, 350);
         jDesktopPane1.add(jTabbedPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jTabbedPane2.addTab("Activité", jPAct);
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+        jFormattedTextField1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jFormattedTextField1PropertyChange(evt);
+            }
+        });
+        jFormattedTextField1.setBounds(1160, 730, 107, 19);
+        jDesktopPane1.add(jFormattedTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jFormattedTextField2.setText("jFormattedTextField2");
+        jFormattedTextField2.setBounds(1160, 760, 107, 19);
+        jDesktopPane1.add(jFormattedTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jFormattedTextField3.setText("jFormattedTextField3");
+        jFormattedTextField3.setBounds(1160, 790, 107, 19);
+        jDesktopPane1.add(jFormattedTextField3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jFormattedTextField4.setText("jFormattedTextField4");
+        jFormattedTextField4.setBounds(1160, 820, 107, 19);
+        jDesktopPane1.add(jFormattedTextField4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel2.setText("1 seconde =");
+        jLabel2.setBounds(1180, 700, 80, 20);
+        jDesktopPane1.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel3.setText("Année(s)");
+        jLabel3.setBounds(1290, 730, 50, 14);
+        jDesktopPane1.add(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel4.setText("Jour(s)");
+        jLabel4.setBounds(1290, 760, 40, 14);
+        jDesktopPane1.add(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel5.setText("Minute(s)");
+        jLabel5.setBounds(1290, 790, 50, 14);
+        jDesktopPane1.add(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel6.setText("Seconde(s)");
+        jLabel6.setBounds(1290, 820, 60, 14);
+        jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,20 +233,11 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
 
 
     protected void  customInitComponents() {
-        jTabbedPane1.addTab("tab1", jPPop);
-        javax.swing.GroupLayout jPPopLayout = new javax.swing.GroupLayout(jPPop);
-        jPPop.setLayout(jPPopLayout);
-        jPPopLayout.setHorizontalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
-                                                                                                                         575,
-                                                                                                                         Short.MAX_VALUE));
-        jPPopLayout.setVerticalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
-                                                                                                                       327,
-                                                                                                                       Short.MAX_VALUE));
-
-        jPPop.setVisible(true);
-
-        jTabbedPane1.addTab("tab2", jPAct);
+        
+        
+       
         javax.swing.GroupLayout jPActLayout = new javax.swing.GroupLayout(jPAct);
+        javax.swing.GroupLayout jPPopLayout = new javax.swing.GroupLayout(jPPop);
         jPAct.setLayout(jPActLayout);
         jPActLayout.setHorizontalGroup(jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
                                                                                                                          575,
@@ -186,10 +245,21 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         jPActLayout.setVerticalGroup(jPActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
                                                                                                                        327,
                                                                                                                        Short.MAX_VALUE));
-
-
         jPAct.setVisible(true);
-
+        System.out.println("JPact Initialisé");
+       
+        jPPop.setLayout(jPPopLayout);
+        jPPopLayout.setHorizontalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                         575,
+                                                                                                                         Short.MAX_VALUE));
+        jPPopLayout.setVerticalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
+                                                                                                                       327,
+                                                                                                                       Short.MAX_VALUE));
+        jPPop.setVisible(true);
+        System.out.println("JPop Initialisé");
+        
+        
+       
     }
     private void PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayActionPerformed
         Princip.playButton();
@@ -211,7 +281,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
             Princip.setdelay((int) ((Vit) * Princip.getdelay()));
 
         }
-            
+        updateDelay();    
         
     }//GEN-LAST:event_jSlideVitesseStateChanged
 
@@ -228,6 +298,10 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         Princip.resetButton();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jFormattedTextField1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jFormattedTextField1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1PropertyChange
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static javax.swing.JScrollPane ElementsTable;
@@ -237,7 +311,16 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     private javax.swing.JButton jButton1;
     public javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JSlider jSlideVitesse;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -286,15 +369,17 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     }
 
     public void setjPPop(String s, double[] x, double[] y) {
+        jPPop.removeAllPlots();
         jPPop.addLinePlot(s,Color.red, x, y);
         jPPop.repaint();
-        
+        System.out.println("JPop set");
     }
 
     public void setjPAct(String s, double[] x, double[] y) {
+        jPAct.removeAllPlots();
         jPAct.addLinePlot(s,Color.red, x, y);
-        jPAct.revalidate();
-        
+        jPAct.repaint();
+        System.out.println("JAct set");
     }
 
 
@@ -343,29 +428,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
                         prov2.setaffiche(false);
                         Princip.setElemListeElem(row, prov2);
                     }
-                    /*
-                    if (Princip.searchAfficheTrue() != -1 & value==true) {
-                        int pos = Princip.searchAfficheTrue();
-                        At prov = Princip.getElemListeElem(pos);
-                        prov.setaffiche(false);
-                        Princip.setElemListeElem(pos, prov);
-                        jTable1.setValueAt(false, pos,0);
-                        At prov2 = Princip.getElemListeElem(row);
-                        prov2.setaffiche(value);
-                        Princip.setElemListeElem(row, prov2);
-                    }
-                    if (Princip.searchAfficheTrue() != -1 & value==false) {
-                        int pos = Princip.searchAfficheTrue();
-                        At prov = Princip.getElemListeElem(pos);
-                        prov.setaffiche(false);
-                        Princip.setElemListeElem(pos, prov);
-                        jTable1.setValueAt(false, pos,0);
-
-                    }
-                    At prov2 = Princip.getElemListeElem(row);
-                    prov2.setaffiche(value);
-                    Princip.setElemListeElem(row, prov2);
-                    */
+                   
                 }
                 break;
 
@@ -381,6 +444,58 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
                 break;
 
             }
+        }
+    }
+    public void updateDelay(){
+        setDelayAffiche();
+        getDelayAffiche();
+    }
+    //affiche le delay dans les cases en bas à droite de l'interface: jformated textfields
+    public void setDelayAffiche(){
+        double t=Princip.getdelay();
+        double an = (Math.floor(t / (365 * 24 * 60)));
+        t = t - an * 365 * 24 * 60;
+        double jours = (Math.floor(t / (24 * 60)));
+        ;
+        t = t - jours * 24 * 60;
+        double min = (Math.floor(t / (60)));
+        ;
+        t = t - min * 60;
+        double sec = (Math.floor(t));
+        jFormattedTextField1.setText(String.valueOf(an));
+        jFormattedTextField1.setValue(an);
+        jFormattedTextField2.setText(String.valueOf(jours));
+        jFormattedTextField2.setValue(jours);
+        jFormattedTextField3.setText(String.valueOf(min));
+        jFormattedTextField3.setValue(min);
+        jFormattedTextField4.setText(String.valueOf(sec));
+        jFormattedTextField4.setValue(sec);
+    }
+    
+    public void getDelayAffiche(){
+        double t =0;
+        
+        double an=Double.parseDouble(jFormattedTextField1.getText());
+        jFormattedTextField1.setValue(an);
+        t = t + an * 365 * 24 * 60;
+        double jours=Double.parseDouble(jFormattedTextField2.getText());
+        jFormattedTextField2.setValue(jours);
+        t = t + jours * 24 * 60;
+        double min=Double.parseDouble(jFormattedTextField3.getText());
+        jFormattedTextField3.setValue(min);
+        t = t + min * 60;
+        double sec =Double.parseDouble(jFormattedTextField4.getText());
+        jFormattedTextField4.setValue(sec);
+        t=t+sec;
+        Princip.setdelay(t);
+        
+    }
+    
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        Object source = e.getSource();
+        if(source==jFormattedTextField1  ||  source==jFormattedTextField2 ||  source==jFormattedTextField3 ||  source==jFormattedTextField4){
+            updateDelay();
         }
     }
 }

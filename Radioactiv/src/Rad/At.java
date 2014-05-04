@@ -11,11 +11,13 @@ public class At {
     protected int N;
     protected int type;
     protected int pop2;
+    protected int popAct;
     protected int ajoutPop;
     protected int pop1;
     protected int popIni;
     protected boolean affiche;
     protected double activite;
+   
     ArrayList<double[]> graphPop = new ArrayList();
     ArrayList<double[]> graphAct = new ArrayList();
 
@@ -53,6 +55,10 @@ public class At {
 
     public int getpop2() {
         return pop2;
+    }
+    
+    public int getpopAct() {
+        return popAct;
     }
     
     public int getajoutPop() {
@@ -102,6 +108,10 @@ public class At {
     public void setpop2(int p2) {
         pop2 = p2;
     }
+    
+    public void setpopAct(int pa) {
+        popAct = pa;
+    }
 
     public void setajoutPop(int aj) {
         ajoutPop = aj;
@@ -129,20 +139,25 @@ public class At {
     }
 
     public void activite() {
-        double t = Princip.getdelay();
-        activite = ((double)ajoutPop) / t;
+        double t = Princip.gettemps()-Princip.getTempsPrec();
+        
         if(ajoutPop==0){activite =0;} // sert à avoir un vrai 0
+        else{activite = ((double)ajoutPop) / t;}
     }
 
 
     public double getdVie() {
         return dVie;
     }
+    
+   
 
 
     public void setdVie(double d) {
         dVie =d;
     }
+    
+    
     
     public void toPrint(){
        // System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
@@ -150,12 +165,12 @@ public class At {
     }
     
     public void addPointPop(){
-        double[] coord={this.getpop1(), Princip.gettemps()};
+        double[] coord={ Princip.gettemps(),this.getpopAct()};
         this.graphPop.add(coord);
     }
     
     public void addPointAct(){
-        double[] coord={this.getactivite(), Princip.gettemps()};
+        double[] coord={ Princip.gettemps(),this.getactivite()};
         this.graphAct.add(coord);
     }
     
@@ -168,27 +183,27 @@ public class At {
     }
     
     public double[] tabYAct(){
-        double[] tab= new double[graphAct.size()];                       
+        double[] tab1= new double[graphAct.size()];                       
         for (int i = 0; i < graphAct.size(); i++) {
-            tab[i]=graphAct.get(i)[1];
+            tab1[i]=graphAct.get(i)[1];
         }
-        return tab;
+        return tab1;
     }
     
     public double[] tabXPop(){
-        double[] tab= new double[graphPop.size()];                       
+        double[] tab2= new double[graphPop.size()];                       
         for (int i = 0; i < graphPop.size(); i++) {
-            tab[i]=graphPop.get(i)[0];
+            tab2[i]=graphPop.get(i)[0];
         }
-        return tab;
+        return tab2;
     }
     
     public double[] tabYPop(){
-        double[] tab= new double[graphPop.size()];                       
+        double[] tab3= new double[graphPop.size()];                       
         for (int i = 0; i < graphPop.size(); i++) {
-            tab[i]=graphPop.get(i)[1];
+            tab3[i]=graphPop.get(i)[1];
         }
-        return tab;
+        return tab3;
     }
     
 }
