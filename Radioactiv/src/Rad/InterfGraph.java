@@ -28,7 +28,7 @@ import javax.swing.table.TableModel;
  * @author ENZO
  */
 
-public class InterfGraph extends javax.swing.JFrame implements TableModelListener , PropertyChangeListener{
+public class InterfGraph extends javax.swing.JFrame implements TableModelListener, PropertyChangeListener {
 
     protected Plot2DPanel jPPop = new Plot2DPanel();
     protected Plot2DPanel jPAct = new Plot2DPanel();
@@ -37,18 +37,20 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     public InterfGraph() {
         initComponents();
         customInitComponents();
-        PropertyChangeListener delayListener= new PropertyChangeListener(){    public void propertyChange(PropertyChangeEvent e) {
-        Object source = e.getSource();
-        if(source==jFormattedTextField1  ||  source==jFormattedTextField2 ||  source==jFormattedTextField3 ||  source==jFormattedTextField4){
-            updateDelay();
-        }
-    }};
+        PropertyChangeListener delayListener = new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent e) {
+                Object source = e.getSource();
+                if (source == jFormattedTextField1 || source == jFormattedTextField2 ||
+                    source == jFormattedTextField3 || source == jFormattedTextField4) {
+                    updateDelay();
+                }
+            }
+        };
         jTable1.getModel().addTableModelListener(this);
-        jFormattedTextField1.addPropertyChangeListener("value",delayListener);
-jFormattedTextField2.addPropertyChangeListener("value",delayListener);
-jFormattedTextField3.addPropertyChangeListener("value",delayListener);
-jFormattedTextField4.addPropertyChangeListener("value",delayListener);
-        
+        jFormattedTextField1.addPropertyChangeListener("value", delayListener);
+        jFormattedTextField2.addPropertyChangeListener("value", delayListener);
+        jFormattedTextField3.addPropertyChangeListener("value", delayListener);
+        jFormattedTextField4.addPropertyChangeListener("value", delayListener);
 
 
     }
@@ -89,6 +91,7 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jDesktopPane1.setBackground(new java.awt.Color(153, 204, 255));
         jDesktopPane1.setBorder(new javax.swing.border.MatteBorder(null));
 
         Play.setText("Commencer la Simulation");
@@ -232,10 +235,9 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
     }//GEN-END:initComponents
 
 
-    protected void  customInitComponents() {
-        
-        
-       
+    protected void customInitComponents() {
+
+
         javax.swing.GroupLayout jPActLayout = new javax.swing.GroupLayout(jPAct);
         javax.swing.GroupLayout jPPopLayout = new javax.swing.GroupLayout(jPPop);
         jPAct.setLayout(jPActLayout);
@@ -247,7 +249,7 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
                                                                                                                        Short.MAX_VALUE));
         jPAct.setVisible(true);
         System.out.println("JPact Initialisé");
-       
+
         jPPop.setLayout(jPPopLayout);
         jPPopLayout.setHorizontalGroup(jPPopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0,
                                                                                                                          575,
@@ -257,9 +259,8 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
                                                                                                                        Short.MAX_VALUE));
         jPPop.setVisible(true);
         System.out.println("JPop Initialisé");
-        
-        
-       
+
+
     }
     private void PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayActionPerformed
         Princip.playButton();
@@ -274,14 +275,16 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
     }//GEN-LAST:event_PauseActionPerformed
 
     private void jSlideVitesseStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlideVitesseStateChanged
-        // TODO add your handling code here:
+        
         JSlider source = jSlideVitesse;
         if (!source.getValueIsAdjusting()) {
             double Vit = (double) source.getValue() / 1000;
-            Princip.setdelay((int) ((Vit) * Princip.getdelay()));
-
+            
+             Princip.setdelay( ((Vit) * Princip.getT()));
+            setDelayAffiche();
+            System.out.println(Princip.getdelay());
         }
-        updateDelay();    
+         
         
     }//GEN-LAST:event_jSlideVitesseStateChanged
 
@@ -370,14 +373,14 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
 
     public void setjPPop(String s, double[] x, double[] y) {
         jPPop.removeAllPlots();
-        jPPop.addLinePlot(s,Color.red, x, y);
+        jPPop.addLinePlot(s, Color.red, x, y);
         jPPop.repaint();
         System.out.println("JPop set");
     }
 
     public void setjPAct(String s, double[] x, double[] y) {
         jPAct.removeAllPlots();
-        jPAct.addLinePlot(s,Color.red, x, y);
+        jPAct.addLinePlot(s, Color.red, x, y);
         jPAct.repaint();
         System.out.println("JAct set");
     }
@@ -405,7 +408,7 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
                     boolean value = (Boolean) data;
                     if (value == true) {
                         if (Princip.searchAfficheTrue() != -1 & Princip.countAfficheTruejT() == 2) {
-                           
+
                             if (pos != row) {
                                 jTable1.setValueAt(false, pos, 0);
                                 At prov = Princip.getElemListeElem(pos);
@@ -420,15 +423,15 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
                             At prov2 = Princip.getElemListeElem(row);
                             prov2.setaffiche(true);
                             Princip.setElemListeElem(row, prov2);
-                        
+
                         }
-                        pos=row;
+                        pos = row;
                     } else if (value == false) {
                         At prov2 = Princip.getElemListeElem(row);
                         prov2.setaffiche(false);
                         Princip.setElemListeElem(row, prov2);
                     }
-                   
+
                 }
                 break;
 
@@ -446,13 +449,14 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
             }
         }
     }
-    public void updateDelay(){
+
+    public void updateDelay() {
         setDelayAffiche();
         getDelayAffiche();
     }
     //affiche le delay dans les cases en bas à droite de l'interface: jformated textfields
-    public void setDelayAffiche(){
-        double t=Princip.getdelay();
+    public void setDelayAffiche() {
+        double t = Princip.getdelay();
         double an = (Math.floor(t / (365 * 24 * 60)));
         t = t - an * 365 * 24 * 60;
         double jours = (Math.floor(t / (24 * 60)));
@@ -471,31 +475,35 @@ jFormattedTextField4.addPropertyChangeListener("value",delayListener);
         jFormattedTextField4.setText(String.valueOf(sec));
         jFormattedTextField4.setValue(sec);
     }
-    
-    public void getDelayAffiche(){
-        double t =0;
-        
-        double an=Double.parseDouble(jFormattedTextField1.getText());
+
+    public void getDelayAffiche() {
+        double t = 0;
+
+        double an = Double.parseDouble(jFormattedTextField1.getText().replace(" ",""));
         jFormattedTextField1.setValue(an);
         t = t + an * 365 * 24 * 60;
-        double jours=Double.parseDouble(jFormattedTextField2.getText());
+        double jours = Double.parseDouble(jFormattedTextField2.getText());
         jFormattedTextField2.setValue(jours);
         t = t + jours * 24 * 60;
-        double min=Double.parseDouble(jFormattedTextField3.getText());
+        double min = Double.parseDouble(jFormattedTextField3.getText());
         jFormattedTextField3.setValue(min);
         t = t + min * 60;
-        double sec =Double.parseDouble(jFormattedTextField4.getText());
+        double sec = Double.parseDouble(jFormattedTextField4.getText());
         jFormattedTextField4.setValue(sec);
-        t=t+sec;
+        t = t + sec;
         Princip.setdelay(t);
-        
+
     }
+   
     
+
     @Override
     public void propertyChange(PropertyChangeEvent e) {
         Object source = e.getSource();
-        if(source==jFormattedTextField1  ||  source==jFormattedTextField2 ||  source==jFormattedTextField3 ||  source==jFormattedTextField4){
-            updateDelay();
+        if (source == jFormattedTextField1 || source == jFormattedTextField2 || source == jFormattedTextField3 ||
+            source == jFormattedTextField4) {
+            getDelayAffiche();
         }
+        
     }
 }
