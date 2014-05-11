@@ -88,6 +88,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,6 +215,10 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
         jLabel6.setBounds(1290, 820, 60, 14);
         jDesktopPane1.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jTextField2.setText("jTextField2");
+        jTextField2.setBounds(140, 880, 1140, 19);
+        jDesktopPane1.add(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,6 +334,7 @@ public class InterfGraph extends javax.swing.JFrame implements TableModelListene
     private javax.swing.JTabbedPane jTabbedPane2;
     protected static javax.swing.JTable jTable1;
     protected static javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField2;
     private javax.swing.JPopupMenu menuInit;
     // End of variables declaration//GEN-END:variables
    

@@ -51,7 +51,7 @@ public class Princip {
     protected static double delay = 1; // une seconde  de temps réel = delay secondes de temps
     protected static Timer timer;
     protected static double temps; //temps écoulé
-    protected static double tempsprec=0;
+    protected static double tempsprec = 0;
     protected static ArrayList<At> ListeElem =
         new ArrayList(); //passage d'une linked list à Array list car Linkedlist.get o(n) et ArrayList.get o(1) d'où une surchage de parcours
 
@@ -73,7 +73,7 @@ public class Princip {
         //rempli la liste des atomes
         Origin(); // met en place timer
 
-     
+
     }
 
     public void desintAt(At atome) {
@@ -99,7 +99,7 @@ public class Princip {
                     if (atomeprov.getA() == (atome.getA() - 4) & atomeprov.getZ() == (atome.getZ() - 2)) { //trouve le nouvel élément
                         atomedes = atomeprov;
                         //atome.setpop1(atome.pop2);  //pop1=pop2
-                        int newPop = ((int) Math.ceil((atome.getpopIni() * Math.exp(-(temps / atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                        int newPop = ((int) Math.ceil((atome.getpopIni() * Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -123,8 +123,7 @@ public class Princip {
                         //atome.setpop1(atome.pop2);  //pop1=pop2
                         int newPop =
                             ((int) Math.ceil((atome.getpopIni() *
-                                              Math.exp(-(temps /
-                                                         atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                                              Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -147,8 +146,7 @@ public class Princip {
                         //atome.setpop1(atome.pop2);  //pop1=pop2
                         int newPop =
                             ((int) Math.ceil((atome.getpopIni() *
-                                              Math.exp(-(temps /
-                                                         atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                                              Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -171,7 +169,7 @@ public class Princip {
 
 
     }
-    
+
     public void desintAtCorr2(At atome) {
 
         /*Prend un atome et en réalise la désintégration :
@@ -195,7 +193,7 @@ public class Princip {
                     if (atomeprov.getA() == (atome.getA() - 4) & atomeprov.getZ() == (atome.getZ() - 2)) { //trouve le nouvel élément
                         atomedes = atomeprov;
                         //atome.setpop1(atome.pop2);  //pop1=pop2
-                        int newPop = ((int) Math.ceil(((atome.getpop1()+atome.getajoutPop()) * Math.exp(-((gettemps()-getTempsPrec()) / atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                        int newPop = ((int) Math.ceil(((atome.getpop1()) * Math.exp(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -218,9 +216,8 @@ public class Princip {
                         atomedes = atomeprov;
                         //atome.setpop1(atome.pop2);  //pop1=pop2
                         int newPop =
-                            ((int) Math.ceil((((atome.getpop1()+atome.getajoutPop()) *
-                                              Math.exp(-((gettemps()-getTempsPrec()) /
-                                                         atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                            ((int) Math.ceil((((atome.getpop1()) *
+                                               Math.exp(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie()))))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -242,9 +239,8 @@ public class Princip {
                         atomedes = atomeprov;
                         //atome.setpop1(atome.pop2);  //pop1=pop2
                         int newPop =
-                            ((int) Math.ceil(((atome.getpop1()+atome.getajoutPop()) *
-                                              Math.exp(-((gettemps()-getTempsPrec()) /
-                                                         atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                            ((int) Math.ceil(((atome.getpop1()) *
+                                              Math.exp(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
                         atome.setajoutPop(newPop - atome.getpop1());
 
 
@@ -267,8 +263,8 @@ public class Princip {
 
 
     }
-    
-    public void desintAtCorr(At atome) {
+
+    public void desintAtCorr2_1(At atome) {
 
         /*Prend un atome et en réalise la désintégration :
         détemine en quel élément il se désintégre selon le type de désintégration
@@ -277,8 +273,7 @@ public class Princip {
         */
         At atomeprov; //atome considéré
         At atomedes; //atome fruit de la désintégration
-        int posAtome; //position
-        int des = 0; //population desintégrée
+        
 
 
         switch (atome.gettype()) {
@@ -290,7 +285,9 @@ public class Princip {
                     atomeprov = ListeElem.get(i);
                     if (atomeprov.getA() == (atome.getA() - 4) & atomeprov.getZ() == (atome.getZ() - 2)) { //trouve le nouvel élément
                         atomedes = atomeprov;
-                        atome.setajoutPop(-((int) Math.ceil((atome.getpop1()*((gettemps()-getTempsPrec()) /atome.getdVie())))));
+                        //atome.setpop1(atome.pop2);  //pop1=pop2
+                        int newPop = ((int) Math.ceil(((atome.getpopAct()) * Math.exp(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                        atome.setajoutPop(newPop - atome.getpopAct());
 
 
                         atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
@@ -311,8 +308,11 @@ public class Princip {
                     if (atomeprov.getA() == (atome.getA()) & atomeprov.getZ() == (atome.getZ() + 1)) {
                         atomedes = atomeprov;
                         //atome.setpop1(atome.pop2);  //pop1=pop2
-                        atome.setajoutPop(-((int) Math.ceil((atome.getpop1() *((gettemps()-getTempsPrec()) /atome.getdVie())))));
-                                //dN = -(lambda) N dt
+                        int newPop =
+                            ((int) Math.ceil((((atome.getpopAct()) *
+                                               Math.exp(-((gettemps() - getTempsPrec())*(Math.log(2)/atome.getdVie()))))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                        atome.setajoutPop(newPop - atome.getpopAct());
+
 
                         atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
                         ListeElem.set(i, atomedes);
@@ -330,7 +330,11 @@ public class Princip {
                     atomeprov = ListeElem.get(i);
                     if (atomeprov.getA() == (atome.getA()) & atomeprov.getZ() == (atome.getZ() - 1)) {
                         atomedes = atomeprov;
-                        atome.setajoutPop(-((int) Math.ceil((atome.getpop1() *((gettemps()-getTempsPrec()) /atome.getdVie())))));
+                        //atome.setpop1(atome.pop2);  //pop1=pop2
+                        int newPop =
+                            ((int) Math.ceil(((atome.getpopAct()) *
+                                              Math.exp(-((gettemps() - getTempsPrec())*(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=ln(2)/dVie
+                        atome.setajoutPop(newPop - atome.getpopAct());
 
 
                         atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
@@ -352,6 +356,120 @@ public class Princip {
 
 
     }
+
+    public void desintAtCorr3(At atome) {
+
+        /*Prend un atome et en réalise la désintégration :
+        détemine en quel élément il se désintégre selon le type de désintégration
+        parcourt la liste pour trouver l'atome crée, met à  jour les populations
+        Si une particule est émise, sa position est connue et sa population mise Ã  jour.
+        */
+
+        At atomedes; //atome fruit de la désintégration
+
+
+        switch (atome.gettype()) {
+        case 0:
+            break;
+        case 1:
+            { //alpha
+                atome.setajoutPop((int) Math.ceil((atome.getpopAct()) *
+                                                  (Math.expm1(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))) ));
+                // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                for (int i = 0; i < ListeElem.size(); i++) {
+                    atomedes = ListeElem.get(i);
+                    if (atomedes.getA() == (atome.getA() - 4) & atomedes.getZ() == (atome.getZ() - 2)) { //trouve le nouvel élément
+
+                        //atome.setpop1(atome.pop2);  //pop1=pop2
+
+
+
+                        atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(i, atomedes);
+                        At He = ListeElem.get(posHel); // trouve élém Helium, pop1 pop précédente, pop2 nouvelle pop
+                        He.setajoutPop(He.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(posHel, He);
+                    }
+                }
+
+            }
+
+            break;
+        case 2:
+            { //Beta moins
+                //atome.setpop1(atome.pop2);  //pop1=pop2
+                atome.setajoutPop((int) Math.ceil((atome.getpopAct()) *
+                                                  (Math.expm1(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                for (int i = 0; i < ListeElem.size(); i++) {
+                    atomedes = ListeElem.get(i);
+                    if (((atomedes.getA()) == (atome.getA())) & (atomedes.getZ() == (atome.getZ() + 1))) {
+                        if (atomedes.getA() == 234 & atomedes.getZ() == 92) {
+                            System.out.println("c'est moi, l'Uranium !");
+                        }
+
+                        atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(i, atomedes);
+                        At Elec = ListeElem.get(posElec); // trouve élém Electron
+                        Elec.setajoutPop(Elec.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(posElec, Elec);
+                    }
+                }
+
+            }
+            break;
+        case 3:
+            { //Beta plus
+
+                atome.setajoutPop((int) Math.ceil((atome.getpopAct()) *
+                                                  (Math.expm1(-((gettemps() - getTempsPrec()) *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At) A=1/dVie
+                for (int i = 0; i < ListeElem.size(); i++) {
+                    atomedes = ListeElem.get(i);
+                    if (atomedes.getA() == (atome.getA()) & atomedes.getZ() == (atome.getZ() - 1)) {
+                        atomedes.setajoutPop(atomedes.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(i, atomedes);
+                        At Proton = ListeElem.get(posProt); // trouve élém Proton
+                        Proton.setajoutPop(Proton.getajoutPop() - atome.getajoutPop());
+                        ListeElem.set(posProt, Proton);
+                    }
+                }
+
+            }
+            break;
+        case 4:
+            {
+            }
+            break;
+
+        }
+
+
+    }
+
+    public void desintAtCorr4(At atome) {
+
+        switch (atome.gettype()) {
+        case 0:
+            {
+            }
+            break;
+        case 1:
+            {//alpha : production de He, A'=A-4 Z'=Z-2
+                int des=(int)(Math.ceil(atome.getpopAct()*(Math.expm1(-(gettemps()-getTempsPrec())*(Math.log(2)/atome.getdVie())))));
+                
+            }
+            break;
+        case 2:
+            {
+            }
+            break;
+        case 3:
+            {
+            }
+            break;
+        }
+
+    }
+
 
     public void desintAtOld(At atome) {
 
@@ -379,8 +497,7 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) Math.ceil((atome.popIni *
-                                                       Math.exp(-(temps /
-                                                                  atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At)
+                                                       Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At)
 
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop1(atomedes.pop2);
@@ -404,8 +521,7 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) Math.ceil((atome.popIni *
-                                                       Math.exp(-(temps /
-                                                                  atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At)
+                                                       Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At)
 
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop1(atomedes.pop2);
@@ -428,8 +544,7 @@ public class Princip {
                         atomedes = atomeprov;
                         atome.setpop1(atome.pop2);
                         atome.setpop2((int) Math.ceil((atome.popIni *
-                                                       Math.exp(-(temps /
-                                                                  atome.getdVie()))))); // loi decroissance radio N(t)=No*Exp(-At)
+                                                       Math.exp(-(temps *(Math.log(2)/atome.getdVie())))))); // loi decroissance radio N(t)=No*Exp(-At)
 
                         des = Math.abs(atome.getpop2() - atome.getpop1());
                         atomedes.setpop1(atomedes.pop2);
@@ -454,23 +569,53 @@ public class Princip {
 
     }
 
-    public void desint() {
+    public void desint1() {
         At atome;
         for (int i = 0; i < ListeElem.size(); i++) {
             atome = ListeElem.get(i);
-            desintAtCorr2(atome);
+            atome.setajoutPop(0);
+            ListeElem.set(i, atome);
+        }
+        
+        for (int i = 0; i < ListeElem.size(); i++) {
+            atome = ListeElem.get(i);     
+            desintAtCorr3(atome);
             ListeElem.set(i, atome);
         }
         for (int i = 0; i < ListeElem.size(); i++) {
             atome = ListeElem.get(i);
             atome.setpop2(atome.getpop1() + atome.getajoutPop());
             atome.activite();
-            atome.setajoutPop(0);
+
             atome.addPointAct();
             atome.setpopAct(atome.getpop2());
             atome.setpop1(atome.getpop2());
             atome.addPointPop();
             atome.setpop2(0);
+            ListeElem.set(i, atome);
+        }
+    }
+    
+    public void desint2() {
+        //fonctionnement avec desintAtcorr3
+        At atome;
+        for (int i = 0; i < ListeElem.size(); i++) {
+            atome = ListeElem.get(i);
+            atome.setajoutPop(0);
+            ListeElem.set(i, atome);
+        }
+        
+        for (int i = 0; i < ListeElem.size(); i++) {
+            atome = ListeElem.get(i);     
+            desintAtCorr3(atome);
+            ListeElem.set(i, atome);
+        }
+        for (int i = 0; i < ListeElem.size(); i++) {
+            atome = ListeElem.get(i);
+            atome.setpopAct(atome.getpop1() + atome.getajoutPop());
+            atome.activite();
+            atome.addPointAct();
+            atome.addPointPop();
             ListeElem.set(i, atome);
         }
     }
@@ -486,7 +631,7 @@ public class Princip {
         fen = new InterfGraph();
         fen.setjTable1();
         fen.refreshTab();
-        
+
         fen.setVisible(true);
         fen.setResizable(false);
         //fen.revalidate();
@@ -500,7 +645,7 @@ public class Princip {
         System.out.println("Origin fini");
         //fen.updateDelay();
         setfinInit(true);
-
+        
     }
 
     public void testTimer() {
@@ -519,7 +664,7 @@ public class Princip {
         * MAJ tableau et jTable
         * rafraichit l'interface
         */
-        desint();
+        desint1();
         displayGraph();
         fen.setjTable1();
         fen.refreshTab();
@@ -542,7 +687,7 @@ public class Princip {
             temps = temps + getdelay();
             boucle_principale();
             //testTimer();
-            
+
             afficheTemps();
         }
 
@@ -797,7 +942,10 @@ public class Princip {
             At atome = ListeElem.get(pos);
             fen.setjPAct(atome.getnom(), atome.tabXAct(), atome.tabYAct());
             fen.setjPPop(atome.getnom(), atome.tabXPop(), atome.tabYPop());
-            
+            fen.jTextField2.setText(atome.nom + " abr:" + atome.abr + " A:" + atome.A + " Type:" + atome.type +
+                                    " Demie Vie:" + atome.dVie + " popIni" + atome.popIni + "pop1 " + atome.pop1 +
+                                    "pop2 " + atome.pop2 + "pop2 " + atome.popAct);
+
             fen.revalidate();
         }
     }
@@ -830,32 +978,36 @@ public class Princip {
         }
         System.out.println("c'était un jtab");
     }
-    
-    public static int countAfficheTrue(){
-        int count=0;
+
+    public static int countAfficheTrue() {
+        int count = 0;
         for (int i = 0; i < ListeElem.size(); i++) {
-            if(ListeElem.get(i).getaffiche()==true){count++;}
+            if (ListeElem.get(i).getaffiche() == true) {
+                count++;
+            }
         }
         return count;
     }
-    
-    public static int countAfficheTruejT(){
-        int count=0;
-            for (int i = 0; i < fen.getjTable1().getRowCount(); i++) {
-            if(fen.getjTable1().getValueAt(i, 0)==true){count++;}
+
+    public static int countAfficheTruejT() {
+        int count = 0;
+        for (int i = 0; i < fen.getjTable1().getRowCount(); i++) {
+            if (fen.getjTable1().getValueAt(i, 0) == true) {
+                count++;
+            }
         }
         return count;
     }
+
     public static double getTempsPrec() {
         return tempsprec;
     }
-    
+
     public static void setTempsPrec() {
         Princip.gettemps();
     }
-    
-    
-   
+
+
 }
 
 

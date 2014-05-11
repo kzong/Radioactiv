@@ -141,7 +141,7 @@ public class At {
     public void activite() {
         double t = Princip.gettemps()-Princip.getTempsPrec();
         
-        if(ajoutPop==0){activite =0;} // sert à avoir un vrai 0
+        if(ajoutPop==0 ){activite =0;} // sert à avoir un vrai 0
         else{activite = ((double)ajoutPop) / t;}
     }
 
@@ -160,8 +160,8 @@ public class At {
     
     
     public void toPrint(){
-       // System.out.println(this.getaffiche()+""+this.nom+" abr:"+this.abr+" A:"+this.A+" Z:"+this.Z+" N:"+this.N+" Type:"+this.type+" Demie Vie:"+this.dVie+" "+this.popIni);
-       System.out.println(this.getaffiche());
+       System.out.println(this.nom+" abr:"+this.abr+" A:"+this.A+" Type:"+this.type+" Demie Vie:"+this.dVie+" popIni"+this.popIni+"pop1 "+this.pop1+"pop2 "+this.pop2+ "pop2 "+this.popAct);
+       
     }
     
     public void addPointPop(){
