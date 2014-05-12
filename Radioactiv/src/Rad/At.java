@@ -17,6 +17,9 @@ public class At {
     protected int popIni;
     protected boolean affiche;
     protected double activite;
+    protected double gamma;
+    protected double sumGamma;
+   
    
     ArrayList<double[]> graphPop = new ArrayList();
     ArrayList<double[]> graphAct = new ArrayList();
@@ -141,7 +144,7 @@ public class At {
     public void activite() {
         double t = Princip.gettemps()-Princip.getTempsPrec();
         
-        if(ajoutPop==0 ){activite =0;} // sert à avoir un vrai 0
+        if(ajoutPop==0 ){activite =0;} // sert ï¿½ avoir un vrai 0
         else{activite = ((double)ajoutPop) / t;}
     }
 
@@ -150,8 +153,6 @@ public class At {
         return dVie;
     }
     
-   
-
 
     public void setdVie(double d) {
         dVie =d;
@@ -207,3 +208,22 @@ public class At {
     }
     
 }
+
+
+    public double getgamma() {
+        return sumgamma;
+    }
+
+
+    public void setgamma(double g) {
+        gamma=g;
+    }
+    
+    public double getgamma() {
+        return sumgamma;
+    }
+
+
+    public void setSumGamma(double g) {
+        sumgamma=g;
+    }
